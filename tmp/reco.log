@@ -1,0 +1,8 @@
+HVite -A -a -m -C tmp/analysis.cfg -H lang/spa/spa.hmm -t 250 tmp/El_abuelo_ha_leído_la_novela__dec__2.dct lang/spa/spaphone1.list tmp/El_abuelo_ha_leído_la_novela__dec__2.wav 
+ WARNING [-8232]  ExpandWordNet: Pronunciation 1 of sp is 'tee' word in HVite
+HVite -A -a -m -C tmp/analysis.cfg -H lang/spa/spa.hmm -t 250 tmp/untitled_2.dct lang/spa/spaphone1.list tmp/untitled_2.wav 
+ WARNING [-8232]  ExpandWordNet: Pronunciation 1 of sp is 'tee' word in HVite
+HVite -A -a -m -C tmp/analysis.cfg -H lang/spa/spa.hmm -t 250 tmp/untitled_4.dct lang/spa/spaphone1.list tmp/untitled_4.wav 
+ WARNING [-8232]  ExpandWordNet: Pronunciation 1 of sp is 'tee' word in HVite
+HVite -A -a -m -C tmp/analysis.cfg -H lang/spa/spa.hmm -t 250 tmp/El_maravillado_alumno_murmuró_algo_en_el_aula_magna__dec__2.dct lang/spa/spaphone1.list tmp/El_maravillado_alumno_murmuró_algo_en_el_aula_magna__dec__2.wav 
+ WARNING [-8232]  ExpandWordNet: Pronunciation 1 of sp is 'tee' word in HVite
