@@ -1,5 +1,5 @@
 EASYALIGN
-
+# jeanphilippegoldman@gmail.com
 Fuente: http://latlcui.unige.ch/phonetique/
 En esta página hay documentación más detallada sobre el modo de uso.
 

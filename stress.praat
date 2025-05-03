@@ -1,0 +1,155 @@
+# stress
+# José María Lahoz-Bengoechea (jmlahoz@ucm.es)
+# Version 2025-05-01
+
+# LICENSE
+# (C) 2025 José María Lahoz-Bengoechea
+# This file is part of the plugin_SegmentSound.
+# This is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License
+# as published by the Free Software Foundation
+# either version 3 of the License, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, without even the implied warranty
+# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# For more details, you can find the GNU General Public License here:
+# http://www.gnu.org/licenses/gpl-3.0.en.html
+# This file runs on Praat, a software developed by Paul Boersma
+# and David Weenink at University of Amsterdam.
+
+# This script takes a TextGrid with one tier named words and another named syll.
+# It includes knowledge about instrinsically unstressed words in Spanish and leaves them unmarked.
+# Otherwise, it recognizes the graphic accent position (or in its absence it applies the general rule)
+# to determine which syllable is stressed, and it adds the stress mark to the corresponding syllable.
+
+procedure mark_stress tg syllTID wordsTID
+##{ Define vowel inventory
+nacvowel$[1] = "i"
+nacvowel$[2] = "e"
+nacvowel$[3] = "a"
+nacvowel$[4] = "o"
+nacvowel$[5] = "u"
+nacvowel$[6] = "I"
+nacvowel$[7] = "E"
+nacvowel$[8] = "A"
+nacvowel$[9] = "O"
+nacvowel$[10] = "U"
+acvowel$[1] = "í"
+acvowel$[2] = "é"
+acvowel$[3] = "á"
+acvowel$[4] = "ó"
+acvowel$[5] = "ú"
+acvowel$[6] = "Í"
+acvowel$[7] = "É"
+acvowel$[8] = "Á"
+acvowel$[9] = "Ó"
+acvowel$[10] = "Ú"
+##}
+
+# Define instrinsically unstressed words
+clitics = Read Table from comma-separated file... clitics.csv
+nclit = Get number of rows
+
+select tg
+nword = Get number of intervals... 'wordsTID'
+for iword from 1 to nword
+word$ = Get label of interval... 'wordsTID' iword
+
+# Check if this is an unstressed word
+isclitic = 0
+for iclit from 1 to nclit
+select clitics
+iclitmay$ = Get value... iclit nacmay
+iclitmin$ = Get value... iclit nacmin
+if word$ = iclitmay$ or word$ = iclitmin$
+isclitic = 1
+iclit = nclit
+endif
+endfor ; to nclit
+select tg
+
+if isclitic = 0
+# Get number of syllables in the word
+ini = Get start time of interval... 'wordsTID' iword
+end = Get end time of interval... 'wordsTID' iword
+firstsyll = Get high interval at time... 'syllTID' ini
+lastsyll = Get low interval at time... 'syllTID' end
+lastsyll2 = Get high interval at time... 'syllTID' end
+if lastsyll = lastsyll2
+lastsyll = lastsyll - 1 ; this prevents miscalculations in case of resyllabification
+endif
+nsyll = lastsyll - firstsyll + 1
+
+# Monosyllabic words
+if nsyll = 1
+stressposition = 1
+
+# Plurisyllabic words
+elsif nsyll > 1
+ac = 0
+vow$ = ""
+# Check if word has stress mark
+for ivow from 1 to 10
+ac = ac + index(word$,acvowel$[ivow])
+if ac > 0
+vow$ = acvowel$[ivow]
+ivow = 10
+endif
+endfor ; ivow to 10
+
+# Spanish general rule of stress
+if ac = 0
+if index("aeiouns",right$(word$,1)) != 0
+stressposition = 2
+else
+stressposition = 1
+endif
+
+# Get number of syllables from stress mark to word end
+elsif ac > 0
+stressposition = 1
+tmp$ = mid$(word$,ac+1,length(word$)-ac)
+if left$(tmp$,1) = "i" or left$(tmp$,1) = "u"
+tmp$ = mid$(tmp$,2,length(tmp$)-1)
+endif
+@getnextvow
+while nextvow > 0
+if nextvow != 1 or (vow$ = "í" or vow$ = "ú" or vow$ = "Í" or vow$ = "Ú") or ((vow$ = "a" or vow$ = "e" or vow$ = "o") and (nextvow$ = "a" or nextvow$ = "e" or nextvow$ = "o"))
+stressposition = stressposition + 1
+endif
+tmp$ = mid$(tmp$,nextvow+1,length(tmp$)-nextvow)
+vow$ = nextvow$
+@getnextvow
+endwhile
+
+endif ; there is not stress mark, otherwise there is
+
+endif ; monosyllabic words, otherwise plurisyllabic
+
+# Transcribe stress in corresponding syllable
+stressedsyll = lastsyll - stressposition + 1
+stressedsyll$ = Get label of interval... 'syllTID' stressedsyll
+if stressedsyll$ != "" and stressedsyll$ != "_"
+stressedsyll$ = "'" + stressedsyll$
+endif
+Set interval text... 'syllTID' stressedsyll 'stressedsyll$'
+
+endif ; isclitic = 0
+endfor ; to nword
+
+select clitics
+Remove
+select tg
+endproc
+
+procedure getnextvow
+nextvow = 0
+nextvow$ = ""
+for ivow from 1 to 10
+nextvow = nextvow + index(tmp$,nacvowel$[ivow])
+if nextvow > 0
+nextvow$ = nacvowel$[ivow]
+ivow = 10
+endif
+endfor ; ivow to 10
+endproc
