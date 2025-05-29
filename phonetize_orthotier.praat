@@ -33,9 +33,12 @@
 
 include auxiliary.praat
 
-##{ Stipulated variables
-overwrite = 1
-open_sound_and_tg = 1
+##{ Dialog window
+form 2. Phonetization...
+comment Creates 'phono' tier from a Sound and a TG with an existing 'ortho' tier
+boolean overwrite 1
+boolean open_sound_and_tg 1
+endform
 ##}
 
 ##{ Detect selected Sound/LongSound and TextGrid and exit if selection is not correct

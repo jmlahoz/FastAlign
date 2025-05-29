@@ -20,6 +20,9 @@
 # This file also calls and executes HVite, a tool belonging to HTK, which is a software external to Praat,
 # developed by the Speech Research Group at the University of Cambridge:
 # https://htk.eng.cam.ac.uk/
+# The alignment is based on Hidden Markov Models (HMMs) trained with HTK.
+# In the current version, this only works for Windows and for Spanish.
+# Although this is a limitation, it is more accurate than Praat's native method of alignment.
 
 # This script takes a Sound and a TextGrid with an ortho and a phono tier.
 # ortho must contain the transliteration of the sound in conventional Spanish spelling.
@@ -30,8 +33,10 @@ include auxiliary.praat
 include stress.praat
 
 ##{ Dialog window
-form 3.Segmentation: create phones, syll and words tiers
+form 3. Align sound (HTK)...
 comment Creates 'phones', 'syll', and 'words' tiers from a Sound and a TG with existing 'phono' and 'ortho' tiers
+boolean overwrite 1
+boolean open_sound_and_tg 1
 comment Output tiers
 boolean keep_phones 1
 boolean keep_syll 1
@@ -43,9 +48,7 @@ endform
 ##{ Stipulated variables
 chars_to_ignore$ = "}-'';(),.Ώ?=+$~[]{}012356789" ; some of these characters might be needed as SAMPA in languages other than Spanish ("4" is retained as Spanish tap)
 preptk_threshold = 90 ; miliseconds
-overwrite = 1
 precise_endpointing = 0 ; a value of 1 means no initial or final sp
-open_sound_and_tg = 1
 empty$=""
 ##}
 
@@ -596,6 +599,7 @@ call findtierbyname words 1 1
 wordsTID = findtierbyname.return
 Remove tier... wordsTID
 endif
+# Tier phono is removed by default since it is just an intermediate step
 call findtierbyname phono 0 1
 phonoTID = findtierbyname.return
 nocheck Remove tier... phonoTID
