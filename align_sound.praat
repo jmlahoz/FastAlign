@@ -110,8 +110,8 @@ beginPause ("Keep copies of the stereo / mono versions...")
 comment ("Sound succesfully converted to mono!")
 comment ("The stereo version will be DELETED from the Objects list.")
 comment ("Do you want to keep a copy in the tmp folder of the plugin?")
-boolean ("Keep mono", 1)
-boolean ("Keep stereo", 1)
+boolean ("Keep mono", 0)
+boolean ("Keep stereo", 0)
 endPause ("Continue", 1)
 if keep_mono = 0
 filedelete tmp/'name$'_mono.wav
@@ -154,8 +154,8 @@ beginPause ("Keep copies of the original / converted sounds...")
 comment ("Sound succesfully resampled to 44100 Hz!")
 comment ("The original version will be DELETED from the Objects list.")
 comment ("Do you want to keep a copy in the tmp folder of the plugin?")
-boolean ("Keep original", 1)
-boolean ("Keep resampled", 1)
+boolean ("Keep original", 0)
+boolean ("Keep resampled", 0)
 endPause ("Continue", 1)
 if keep_resampled = 0
 filedelete tmp/'name$'_44100.wav
@@ -212,7 +212,7 @@ for ichar from 1 to length(chars_to_ignore$)
 phono$ = replace$(phono$,mid$(chars_to_ignore$,ichar,1),"",0)
 endfor
 
-#Remove exceeding spaces
+# Remove exceeding spaces
 call removespaces 1 1 1 'phono$'
 phono$ = removespaces.arg$
 
@@ -343,7 +343,7 @@ Remove
 
 ##{ Execute HMM with HTK
 t1$=""
-system HVite -A 't1$' 'empty$' -a -m -C analysis.cfg  -H "'hmmfile$'" -t 250 "tmp/'name$'_'iphono'.dct" lang/spa/spaphone1.list "tmp/'name$'_'iphono'.wav" >> "tmp/reco.log"  2>&1
+system HVite -A 't1$' 'empty$' -a -m -C analysis.cfg  -H "'hmmfile$'" -t 250 "tmp/'name$'_'iphono'.dct" lang/spa/spaphone.list "tmp/'name$'_'iphono'.wav" >> "tmp/reco.log"  2>&1
 ##}
 
 endif ; align_it = 1
@@ -572,7 +572,9 @@ endif ; keep_syll
 ##}
 
 ##{ Add stress to syll tier
+if keep_syll = 1
 call mark_stress 'tg' 'syllTID' 'wordsTID'
+endif
 ##}
 
 ##{ Convert SAMPA to IPA transcription
