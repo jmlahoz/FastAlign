@@ -111,7 +111,8 @@ call findtierbyname orthobak 0 1
 orthobakTID = findtierbyname.return
 if orthobakTID != 0
 Remove tier... 'orthoTID' ; this is the duplicate
-orthoTID = orthobakTID
+call findtierbyname orthobak 1 1
+orthoTID = findtierbyname.return
 Set tier name... 'orthoTID' ortho
 endif
 ##}
