@@ -30,7 +30,6 @@
 # It yields phones, syll, and words tiers aligned to the contents of the sound.
 
 include auxiliary.praat
-include stress.praat
 
 ##{ Dialog window
 form 3. Align sound (HTK)...
@@ -564,7 +563,7 @@ preptk_threshold = preptk_threshold * 1000
 
 ##{ Create syll tier
 if keep_syll = 1
-execute syllabify.praat
+runScript: "syllabify.praat", 'overwrite'
 call findtierbyname "phones" 1 1
 phonesTID = findtierbyname.return
 call findtierbyname "syll" 1 1
@@ -572,12 +571,6 @@ syllTID = findtierbyname.return
 call findtierbyname "words" 1 1
 wordsTID = findtierbyname.return
 endif ; keep_syll
-##}
-
-##{ Add stress to syll tier
-if keep_syll = 1
-call mark_stress 'tg' 'syllTID' 'wordsTID'
-endif
 ##}
 
 ##{ Convert SAMPA to IPA transcription

@@ -21,16 +21,34 @@
 # and creates a syll tier following the syllabification rules for Spanish.
 
 include auxiliary.praat
+include stress.praat
+
+##{ Dialog window
+form Syllabify...
+comment Creates 'syll' tier from a TG with existing 'phones' and 'words' tiers
+boolean overwrite 1
+endform
+##}
+
+##{ Create syll tier
 call findtierbyname phones 1 1
 phonesTID = findtierbyname.return
 call findtierbyname syll 0 1
 syllTID = findtierbyname.return
 
-if syllTID!=0
-Remove tier... 'syllTID'
-endif
-syllTID=phonesTID+1
+if syllTID = 0
+syllTID = phonesTID+1
 Duplicate tier... 'phonesTID' 'syllTID' syll
+elsif syllTID != 0 and overwrite = 1
+Remove tier... 'syllTID'
+syllTID = phonesTID+1
+Duplicate tier... 'phonesTID' 'syllTID' syll
+elsif syllTID != 0 and overwrite = 0
+Set tier name... 'syllTID' syllbak
+syllTID = phonesTID+1
+Duplicate tier... 'phonesTID' 'syllTID' syll
+endif
+##}
 
 ##{ Define types of segments by sonority
 vowels$ = "ieaou"
@@ -195,6 +213,12 @@ endif
 endfor ; cons to 18
 int = int+1
 endwhile
+##}
+
+##{ Mark stress
+call findtierbyname words 1 1
+wordsTID = findtierbyname.return
+call mark_stress 'tg' 'syllTID' 'wordsTID'
 ##}
 
 procedure rmini
