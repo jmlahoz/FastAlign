@@ -218,6 +218,7 @@ endwhile
 ##{ Mark stress
 call findtierbyname words 1 1
 wordsTID = findtierbyname.return
+tg = selected("TextGrid")
 call mark_stress 'tg' 'syllTID' 'wordsTID'
 ##}
 
