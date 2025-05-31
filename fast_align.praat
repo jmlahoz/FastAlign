@@ -1,5 +1,5 @@
-include auxiliary.praat
-include stress.praat
+# include auxiliary.praat
+# include stress.praat
 
 ##{ Dialog window
 form FastAlign...
