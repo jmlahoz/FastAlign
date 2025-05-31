@@ -24,7 +24,7 @@ include auxiliary.praat
 include stress.praat
 
 ##{ Dialog window
-form Syllabify...
+form Create syll tier from phones...
 comment Creates 'syll' tier from a TG with existing 'phones' and 'words' tiers
 boolean overwrite 1
 endform
