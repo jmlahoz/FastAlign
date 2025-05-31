@@ -561,6 +561,12 @@ endwhile
 preptk_threshold = preptk_threshold * 1000
 ##}
 
+##{ Restore silence mark _ where necessary
+Replace interval text: phonesTID, 0, 0, "", "_", "Literals"
+Replace interval text: wordsTID, 0, 0, "", "_", "Literals"
+Replace interval text: orthoTID, 0, 0, "", "_", "Literals"
+##}
+
 ##{ Create syll tier
 if keep_syll = 1
 runScript: "syllabify.praat", 'overwrite'

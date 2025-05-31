@@ -156,6 +156,8 @@ call findtierbyname "phones" 1 1
 phonesTID = findtierbyname.return
 call findtierbyname "words" 1 1
 wordsTID = findtierbyname.return
+call findtierbyname "ortho" 1 1
+orthoTID = findtierbyname.return
 ##}
 
 ##{ Adapt native aligner output to SAMPA
@@ -268,10 +270,11 @@ endif
 endfor ; to nword
 ##}
 
-# To DO: Restore silence mark _ where necessary
-# if lab$ = "-" or lab$ = "_" or lab$ = " "
-# Set interval text... 'orthoTID' int 
-# endif
+##{ Restore silence mark _ where necessary
+Replace interval text: phonesTID, 0, 0, "", "_", "Literals"
+Replace interval text: wordsTID, 0, 0, "", "_", "Literals"
+Replace interval text: orthoTID, 0, 0, "", "_", "Literals"
+##}
 
 ##{ Create syll tier
 if keep_syll = 1
