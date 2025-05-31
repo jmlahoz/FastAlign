@@ -100,7 +100,7 @@ else
 Alignment settings: "Spanish", "yes", "yes", "yes"
 endif
 endif
-Align interval
+nowarn Align interval
 if int = nint
 Close
 endif
