@@ -1,6 +1,6 @@
 # Fast-Align
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-05-03
+# Version 2025-06-02
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
@@ -178,13 +178,16 @@ if ini != 0
 Shift to zero
 endif
 
-call findtierbyname ortho 1 1
+call findtierbyname ortho 0 1
 orthoTID = findtierbyname.return
-call findtierbyname phono 1 1
+call findtierbyname phono 0 1
 phonoTID = findtierbyname.return
 
-if orthoTID = 0 or phonoTID = 0
-exit The TextGrid must contain one tier named ortho and another named phono. Exiting...
+if orthoTID = 0
+exit The TextGrid must contain one tier named ortho (and another named phono). Exiting...
+endif
+if phonoTID = 0
+exit The TextGrid must contain one tier named ortho and another named phono. Execute step "2. Phonetization" to create phono from ortho, then execute step "3. Align sound (HTK)". Exiting...
 endif
 
 # Check if phonoTID and orthoTID have the same boundaries
@@ -598,7 +601,7 @@ call findtierbyname words 1 1
 wordsTID = findtierbyname.return
 Remove tier... wordsTID
 endif
-# Tier phono is removed by default since it is just an intermediate step
+# Tier phono is removed by default since it is just an intermediate step for the HTK method of alignment
 call findtierbyname phono 0 1
 phonoTID = findtierbyname.return
 nocheck Remove tier... phonoTID

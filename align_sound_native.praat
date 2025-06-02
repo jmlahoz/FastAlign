@@ -1,6 +1,6 @@
 # Fast-Align
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-05-03
+# Version 2025-06-02
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
@@ -59,7 +59,6 @@ endif
 ##}
 
 ##{ Apply native alignment
-# name$ = selected$ ("TextGrid")
 View & Edit
 select tg
 
@@ -70,9 +69,6 @@ endif
 
 call findtierbyname ortho 1 1
 orthoTID = findtierbyname.return
-# if orthoTID = 0
-# exit The TextGrid must contain one tier named ortho. Exiting...
-# endif
 
 # Tier ortho must be tier 1, since Align interval operates on selected tier.
 # The tier selected by default in the editor is tier 1 and this cannot be changed by script.
@@ -110,7 +106,7 @@ endfor
 call findtierbyname orthobak 0 1
 orthobakTID = findtierbyname.return
 if orthobakTID != 0
-Remove tier... 'orthoTID' ; this is the duplicate
+Remove tier... 'orthoTID' ; this is the duplicate (bak is the backup, the original)
 call findtierbyname orthobak 1 1
 orthoTID = findtierbyname.return
 Set tier name... 'orthoTID' ortho
@@ -307,7 +303,7 @@ call findtierbyname words 1 1
 wordsTID = findtierbyname.return
 Remove tier... wordsTID
 endif
-# Tier phono is removed by default since it is just an intermediate step
+# Tier phono is removed by default since it is just an intermediate step for the HTK method of alignment
 call findtierbyname phono 0 1
 phonoTID = findtierbyname.return
 nocheck Remove tier... phonoTID
