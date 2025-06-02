@@ -36,6 +36,6 @@ if windows = 1 and simulatemac = 0
 runScript: "phonetize_orthotier.praat", 'overwrite', "no"
 runScript: "align_sound_htk.praat", 'overwrite', 'open_sound_and_tg', 'keep_phones', 'keep_syll', 'keep_words', 'keep_ortho'
 elsif macintosh = 1 or unix = 1 or simulatemac = 1
-runScript: "align_sound_native.praat", 'overwrite', 'open_sound_and_tg', 'keep_phones', 'keep_syll', 'keep_words', 'keep_ortho'
+runScript: "align_sound_native.praat", 'overwrite', 'open_sound_and_tg', 'keep_phones', 'keep_syll', 'keep_words', 'keep_ortho', ""
 endif
 

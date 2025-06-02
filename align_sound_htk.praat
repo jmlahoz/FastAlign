@@ -572,7 +572,7 @@ Replace interval text: orthoTID, 0, 0, "", "_", "Literals"
 
 ##{ Create syll tier
 if keep_syll = 1
-runScript: "syllabify.praat", 'overwrite'
+runScript: "syllabify.praat", 'overwrite', ""
 call findtierbyname "phones" 1 1
 phonesTID = findtierbyname.return
 call findtierbyname "syll" 1 1

@@ -1,6 +1,6 @@
 # syllabify
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-04-01
+# Version 2025-06-02
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
@@ -27,7 +27,17 @@ include stress.praat
 form Create syll tier from phones...
 comment Creates 'syll' tier from a TG with existing 'phones' and 'words' tiers
 boolean overwrite 1
+comment Which ortho interval do you want to align?
+comment (leave this empty to align all intervals)
+word interval_number 
 endform
+##}
+
+##{ Check selection of interval number
+interval_number = number(interval_number$)
+if interval_number <= 0 or round(interval_number) != interval_number
+exit Interval number must be a positive whole number. Exiting...
+endif
 ##}
 
 ##{ Create syll tier
@@ -39,11 +49,11 @@ syllTID = findtierbyname.return
 if syllTID = 0
 syllTID = phonesTID+1
 Duplicate tier... 'phonesTID' 'syllTID' syll
-elsif syllTID != 0 and overwrite = 1
+elsif syllTID != 0 and overwrite = 1 and interval_number = undefined
 Remove tier... 'syllTID'
 syllTID = phonesTID+1
 Duplicate tier... 'phonesTID' 'syllTID' syll
-elsif syllTID != 0 and overwrite = 0
+elsif syllTID != 0 and (overwrite = 0 or interval_number != undefined)
 Set tier name... 'syllTID' syllbak
 syllTID = phonesTID+1
 Duplicate tier... 'phonesTID' 'syllTID' syll
@@ -221,6 +231,52 @@ wordsTID = findtierbyname.return
 tg = selected("TextGrid")
 call mark_stress 'tg' 'syllTID' 'wordsTID'
 ##}
+
+##{ Transfer syllables to proper tier if only one interval was selected
+if interval_number != undefined
+call findtierbyname syllbak 0 1
+syllbakTID = findtierbyname.return
+if syllbakTID > 0
+@align_selected_interval: syllTID, syllbakTID
+Remove tier... 'syllTID'
+call findtierbyname syllbak 1 1
+syllbakTID = findtierbyname.return
+Set tier name... 'syllbakTID' syll
+endif
+endif
+##}
+
+procedure align_selected_interval .originTID .destinyTID
+call findtierbyname ortho 1 1
+orthoTID = findtierbyname.return
+.ini = Get start time of interval... 'orthoTID' 'interval_number'
+.end = Get end time of interval... 'orthoTID' 'interval_number'
+
+# Remove pre-existing boundaries and text in destiny tier within selected times
+.fromdestinyint = Get high interval at time... '.destinyTID' '.ini'
+.todestinyint = Get low interval at time... '.destinyTID' '.end'
+while .fromdestinyint < .todestinyint
+Remove left boundary... '.destinyTID' '.todestinyint'
+.todestinyint = .todestinyint - 1
+endwhile
+Set interval text... '.destinyTID' '.fromdestinyint' 
+
+.fromint = Get high interval at time... '.originTID' '.ini'
+.toint = Get low interval at time... '.originTID' '.end'
+
+for .int from .fromint to .toint
+.intend = Get end time of interval... '.originTID' '.int'
+.lab$ = Get label of interval... '.originTID' '.int'
+
+if .int < .toint
+Insert boundary... '.destinyTID' '.intend'
+endif
+
+.targetint = Get low interval at time... '.destinyTID' '.intend'
+Set interval text... '.destinyTID' '.targetint' '.lab$'
+endfor
+
+endproc
 
 procedure rmini
 Remove boundary at time... 'syllTID' 'ini'

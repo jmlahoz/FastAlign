@@ -1,6 +1,6 @@
 # Auxiliary functions for Praat
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-05-03
+# Version 2025-06-02
 
 # LICENSE
 # (C) 2022 José María Lahoz-Bengoechea
@@ -1090,6 +1090,9 @@ endif
 
 
 lab2$ = lab2$ + etiqueta_transformada$
+# Avoid hyperspecification of diacritics if the origin was already IPA
+# Given the previous conditions, this is only necessary in the case of the 'bridge' for t̪
+lab2$ = replace$(lab2$,"\Nv\Nv","\Nv",0)
 
 endwhile
 

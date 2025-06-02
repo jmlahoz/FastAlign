@@ -38,6 +38,9 @@ boolean keep_phones 1
 boolean keep_syll 1
 boolean keep_words 1
 boolean keep_ortho 1
+comment Which ortho interval do you want to align?
+comment (leave this empty to align all intervals)
+word interval_number 
 endform
 ##}
 
@@ -55,6 +58,13 @@ if nso = 1
 so=selected("Sound")
 elsif nloso = 1
 so=selected("LongSound")
+endif
+##}
+
+##{ Check selection of interval number
+interval_number = number(interval_number$)
+if interval_number <= 0 or round(interval_number) != interval_number
+exit Interval number must be a positive whole number. Exiting...
 endif
 ##}
 
@@ -80,8 +90,17 @@ orthoTID = 1
 Duplicate tier... 'orthobakTID' 'orthoTID' ortho
 endif
 
-nint = Get number of intervals... 'orthoTID'
-for int from 1 to nint
+# If an interval number was specified, only this will be aligned.
+# Otherwise, all intervals are processed.
+if interval_number != undefined
+fromortho = interval_number
+toortho = interval_number
+else
+fromortho = 1
+toortho = Get number of intervals... 'orthoTID'
+endif
+
+for int from fromortho to toortho
 lab$ = Get label of interval... 'orthoTID' int
 if lab$ = "-" or lab$ = "_" or lab$ = " "
 Set interval text... 'orthoTID' int 
@@ -89,7 +108,7 @@ endif
 ini = Get start time of interval... 'orthoTID' int
 editor TextGrid 'name$'
 Move cursor to... ini
-if int = 1
+if int = fromortho
 if praatVersion >= 6036
 Alignment settings: "Spanish (Spain)", "yes", "yes", "yes"
 else
@@ -97,11 +116,11 @@ Alignment settings: "Spanish", "yes", "yes", "yes"
 endif
 endif
 nowarn Align interval
-if int = nint
+if int = toortho
 Close
 endif
 endeditor
-endfor
+endfor ; int
 
 call findtierbyname orthobak 0 1
 orthobakTID = findtierbyname.return
@@ -120,6 +139,8 @@ call findtierbyname orthophon 1 1
 orthophonTID = findtierbyname.return
 if oldphonesTID = 0
 Duplicate tier... 'orthophonTID' 1 phones
+elsif interval_number != undefined
+@align_selected_interval: orthophonTID, oldphonesTID
 elsif oldphonesTID != 0 and overwrite = 1
 Remove tier... 'oldphonesTID'
 Duplicate tier... 'orthophonTID' 1 phones
@@ -137,6 +158,13 @@ call findtierbyname orthoword 1 1
 orthowordTID = findtierbyname.return
 if oldwordsTID = 0
 Duplicate tier... 'orthowordTID' 2 words
+elsif interval_number != undefined
+# Ortho position must be recalculated since orthophonTID has been deleted.
+# This was not necessary for the phones round, nor is it necessary for the other branches of this condition.
+# It will be recalculated after deletion of orthowordTID, anyway.
+call findtierbyname ortho 1 1
+orthoTID = findtierbyname.return
+@align_selected_interval: orthowordTID, oldwordsTID
 elsif oldwordsTID != 0 and overwrite = 1
 Remove tier... 'oldwordsTID'
 Duplicate tier... 'orthowordTID' 2 words
@@ -156,30 +184,45 @@ call findtierbyname "ortho" 1 1
 orthoTID = findtierbyname.return
 ##}
 
+##{ Get interval range for phones and words tiers
+if interval_number != undefined
+ini = Get start time of interval... 'orthoTID' 'interval_number'
+end = Get end time of interval... 'orthoTID' 'interval_number'
+fromphone = Get high interval at time... 'phonesTID' 'ini'
+tophone = Get low interval at time... 'phonesTID' 'end'
+fromword = Get high interval at time... 'wordsTID' 'ini'
+toword = Get low interval at time... 'wordsTID' 'end'
+else
+fromphone = 1
+tophone = Get number of intervals... 'phonesTID'
+fromword = 1
+toword = Get number of intervals... 'wordsTID'
+endif
+##}
+
 ##{ Adapt native aligner output to SAMPA
-Replace interval text... phonesTID 0 0 tʃ tS Literals
-Replace interval text... phonesTID 0 0 θ T Literals
-Replace interval text... phonesTID 0 0 β B Literals
-Replace interval text... phonesTID 0 0 ð D Literals
-Replace interval text... phonesTID 0 0 ɣ G Literals
-Replace interval text... phonesTID 0 0 b B Literals
-Replace interval text... phonesTID 0 0 d D Literals
-Replace interval text... phonesTID 0 0 ɡ G Literals
-Replace interval text... phonesTID 0 0 ʎ jj Literals
-Replace interval text... phonesTID 0 0 ɲ J Literals
-Replace interval text... phonesTID 0 0 ŋ n Literals
-Replace interval text... phonesTID 0 0 ɾ 4 Literals
-Replace interval text... phonesTID 0 0 ɛ e Literals
-Replace interval text... phonesTID 0 0 ɔ o Literals
-Replace interval text... phonesTID 0 0 ɪ j Literals
-Replace interval text... phonesTID 0 0 ʊ w Literals
+Replace interval text... phonesTID fromphone tophone tʃ tS Literals
+Replace interval text... phonesTID fromphone tophone θ T Literals
+Replace interval text... phonesTID fromphone tophone β B Literals
+Replace interval text... phonesTID fromphone tophone ð D Literals
+Replace interval text... phonesTID fromphone tophone ɣ G Literals
+Replace interval text... phonesTID fromphone tophone b B Literals
+Replace interval text... phonesTID fromphone tophone d D Literals
+Replace interval text... phonesTID fromphone tophone ɡ G Literals
+Replace interval text... phonesTID fromphone tophone ʎ jj Literals
+Replace interval text... phonesTID fromphone tophone ɲ J Literals
+Replace interval text... phonesTID fromphone tophone ŋ n Literals
+Replace interval text... phonesTID fromphone tophone ɾ 4 Literals
+Replace interval text... phonesTID fromphone tophone ɛ e Literals
+Replace interval text... phonesTID fromphone tophone ɔ o Literals
+Replace interval text... phonesTID fromphone tophone ɪ j Literals
+Replace interval text... phonesTID fromphone tophone ʊ w Literals
 ##}
 
 ##{ Adapt native aligner output to Spanish phonotactics
 
 ##{ Properly interpret güe, güi as /Gwe, Gwi/
-nword = Get number of intervals... 'wordsTID'
-for iword from 1 to nword
+for iword from fromword to toword
 word$ = Get label of interval... 'wordsTID' iword
 if index(word$,"ü") != 0
 ini = Get start time of interval... 'wordsTID' iword
@@ -197,12 +240,11 @@ endif
 endif
 endfor ; from pho1 to pho2
 endif
-endfor ; to nword
+endfor ; to toword
 ##}
 
 ##{ Diphthongs and triphthongs
-nint = Get number of intervals... 'phonesTID'
-for int from 1 to nint
+for int from fromphone to tophone
 lab$ = Get label of interval... 'phonesTID' int
 if lab$ = "aw" or lab$ = "ew" or lab$ = "ow" or lab$ = "aj" or lab$ = "ej" or lab$ = "oj"
 # Bisegmental, not monosegmental diphthongs
@@ -219,7 +261,7 @@ elsif paravowel$ = "w"
 Set interval text... 'phonesTID' int+1 w
 endif
 int = int+1
-nint = nint+1
+tophone = tophone+1
 elsif lab$ = "i" or lab$ = "u"
 ini = Get start time of interval... 'phonesTID' int
 iword = Get interval at time... 'wordsTID' ini
@@ -247,14 +289,13 @@ Set interval text... 'phonesTID' int w
 endif
 endif
 endif
-endfor ; to nint
+endfor ; to tophone
 ##}
 
 ##}
 
 ##{ Remove punctuation from words tier
-nword = Get number of intervals... 'wordsTID'
-for iword from 1 to nword
+for iword from fromword to toword
 word$ = Get label of interval... 'wordsTID' iword
 if word$ != ""
 call removepunct 'word$'
@@ -274,7 +315,7 @@ Replace interval text: orthoTID, 0, 0, "", "_", "Literals"
 
 ##{ Create syll tier
 if keep_syll = 1
-runScript: "syllabify.praat", 'overwrite'
+runScript: "syllabify.praat", 'overwrite', "'interval_number$'"
 call findtierbyname "phones" 1 1
 phonesTID = findtierbyname.return
 call findtierbyname "syll" 1 1
@@ -318,3 +359,35 @@ plus so
 if open_sound_and_tg
 Edit
 endif
+
+procedure align_selected_interval .originTID .destinyTID
+call findtierbyname ortho 1 1
+orthoTID = findtierbyname.return
+.ini = Get start time of interval... 'orthoTID' 'interval_number'
+.end = Get end time of interval... 'orthoTID' 'interval_number'
+
+# Remove pre-existing boundaries and text in destiny tier within selected times
+.fromdestinyint = Get high interval at time... '.destinyTID' '.ini'
+.todestinyint = Get low interval at time... '.destinyTID' '.end'
+while .fromdestinyint < .todestinyint
+Remove left boundary... '.destinyTID' '.todestinyint'
+.todestinyint = .todestinyint - 1
+endwhile
+Set interval text... '.destinyTID' '.fromdestinyint' 
+
+.fromint = Get high interval at time... '.originTID' '.ini'
+.toint = Get low interval at time... '.originTID' '.end'
+
+for .int from .fromint to .toint
+.intend = Get end time of interval... '.originTID' '.int'
+.lab$ = Get label of interval... '.originTID' '.int'
+
+if .int < .toint
+Insert boundary... '.destinyTID' '.intend'
+endif
+
+.targetint = Get low interval at time... '.destinyTID' '.intend'
+Set interval text... '.destinyTID' '.targetint' '.lab$'
+endfor
+
+endproc
