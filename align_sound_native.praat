@@ -124,6 +124,7 @@ nowarn Save as WAV file... tmp/'name$'_stereo.wav
 endif
 Remove
 select so
+plus tg
 endif
 ##}
 
