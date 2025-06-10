@@ -370,6 +370,7 @@ wordsTID = 1
 Insert interval tier... 'wordsTID' words
 elsif wordsTID != 0 and overwrite = 0
 Set tier name... 'wordsTID' wordsbak
+wordsTID = 1
 Insert interval tier... 'wordsTID' words
 endif
 ##}
@@ -387,6 +388,7 @@ phonesTID = 1
 Insert interval tier... 'phonesTID' phones
 elsif phonesTID != 0 and overwrite = 0
 Set tier name... 'phonesTID' phonesback
+phonesTID = 1
 Insert interval tier... 'phonesTID' phones
 endif
 ##}
