@@ -44,6 +44,13 @@ word interval_number
 endform
 ##}
 
+##{ Check selection of interval number
+interval_number = number(interval_number$)
+if interval_number <= 0 or round(interval_number) != interval_number
+exit Interval number must be a positive whole number. Exiting...
+endif
+##}
+
 ##{ Detect selected Sound/LongSound and TextGrid and exit if selection is not correct
 nso=numberOfSelected("Sound")
 nloso=numberOfSelected("LongSound")
@@ -61,10 +68,62 @@ so=selected("LongSound")
 endif
 ##}
 
-##{ Check selection of interval number
-interval_number = number(interval_number$)
-if interval_number <= 0 or round(interval_number) != interval_number
-exit Interval number must be a positive whole number. Exiting...
+##{ Ensure Sound is mono
+select so
+if nso = 1
+nch=Get number of channels
+if nch=2
+stereoso = so
+so = Convert to mono
+Rename... 'name$'
+nowarn Save as WAV file... tmp/'name$'_mono.wav
+endif
+
+elsif nloso = 1
+loso_info$ = Info
+nch = extractNumber(loso_info$,"Number of channels: ")
+if nch=2
+beginPause ("Convert to mono...")
+comment ("Attempting to convert Sound to mono. If this fails, do it manually.")
+comment ("Which channel do you want to extract?")
+optionMenu ("Channel", 1)
+option ("Left")
+option ("Right")
+option ("Merge both")
+endPause ("Continue",1)
+stereoso = so
+sopart = Extract part... 0 0 yes
+if channel = 3
+monoso = Convert to mono
+elsif channel = 1 or channel = 2
+monoso = Extract one channel... channel
+endif
+nowarn Save as WAV file... tmp/'name$'_mono.wav
+select sopart
+plus monoso
+Remove
+so = Open long sound file... tmp/'name$'_mono.wav
+Rename... 'name$'
+endif
+endif
+
+if nch = 2
+beginPause ("Keep copies of the stereo / mono versions...")
+comment ("Sound succesfully converted to mono!")
+comment ("The stereo version will be DELETED from the Objects list.")
+comment ("Do you want to keep a copy in the tmp folder of the plugin?")
+boolean ("Keep mono", 0)
+boolean ("Keep stereo", 0)
+endPause ("Continue", 1)
+if keep_mono = 0
+filedelete tmp/'name$'_mono.wav
+endif
+select stereoso
+if keep_stereo = 1
+nowarn Save as WAV file... tmp/'name$'_stereo.wav
+endif
+Remove
+select so
 endif
 ##}
 
