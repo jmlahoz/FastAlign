@@ -1,6 +1,6 @@
 # Fast-Align
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-06-02
+# Version 2025-06-10
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
@@ -49,6 +49,7 @@ chars_to_ignore$ = "}-'';(),.Ώ?=+$~[]{}012356789" ; some of these characters mi
 preptk_threshold = 90 ; miliseconds
 precise_endpointing = 0 ; a value of 1 means no initial or final sp
 empty$=""
+failed_iphonos$ = ""
 ##}
 
 ##{ Detect selected Sound/LongSound and TextGrid and exit if selection is not correct
@@ -419,6 +420,33 @@ filedelete tmp/reco.log
 
 select sampa2htk
 Remove
+
+##{ Attempt native alignment for failed iphono(s)
+# In procedure getrec a string has been assembled with phono interval numbers
+# that are not a silence mark and which failed to produce a .rec file in HTK
+if failed_iphonos$ != ""
+while failed_iphonos$ != ""
+ibar = index(failed_iphonos$,"_")
+iphono$ = mid$(failed_iphonos$,1,ibar-1)
+failed_iphonos$ = mid$(failed_iphonos$,ibar+1,length(failed_iphonos$)-ibar)
+ibar = index(failed_iphonos$,"_")
+
+# Native alignment is invoked as a last resource only for those intervals, in order to fill in words and phones
+select so
+plus tg
+runScript: "align_sound_native.praat", "yes", "no", "yes", "no", "yes", "yes", "'iphono$'"
+endwhile
+select tg
+call findtierbyname "phones" 1 1
+phonesTID = findtierbyname.return
+call findtierbyname "words" 1 1
+wordsTID = findtierbyname.return
+call findtierbyname "phono" 1 1
+phonoTID = findtierbyname.return
+call findtierbyname "ortho" 1 1
+orthoTID = findtierbyname.return
+endif
+##}
 
 ##{ Extract initial and final pauses from phono and ortho segments
 select tg
@@ -941,6 +969,12 @@ Set interval text... 'phonesTID' 'iphone' _
 Insert boundary... 'wordsTID' 'phonoini'
 iword = Get interval at time... 'wordsTID' 'phonoini'
 Set interval text... 'wordsTID' 'iword' _
+endif
+if phono$ != "_"
+# This string keeps record of phono intervals that failed to produce a .rec file in HTK
+# (excluding those that are just a silence mark)
+# This will be used later to invoke native alignment as a last resource just for those intervals
+failed_iphonos$ = failed_iphonos$ + "'iphono'_"
 endif
 endif ; recfile is readable, or not
 

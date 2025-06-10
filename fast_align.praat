@@ -30,7 +30,7 @@ boolean keep_ortho 1
 endform
 ##}
 
-simulatemac = 1
+simulatemac = 0
 
 if windows = 1 and simulatemac = 0
 runScript: "phonetize_orthotier.praat", 'overwrite', "no"

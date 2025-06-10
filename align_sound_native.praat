@@ -1,6 +1,6 @@
 # Fast-Align
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-06-02
+# Version 2025-06-10
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
@@ -129,6 +129,8 @@ endif
 ##}
 
 ##{ Apply native alignment
+select so
+plus tg
 View & Edit
 select tg
 
@@ -405,9 +407,9 @@ wordsTID = findtierbyname.return
 Remove tier... wordsTID
 endif
 # Tier phono is removed by default since it is just an intermediate step for the HTK method of alignment
-call findtierbyname phono 0 1
-phonoTID = findtierbyname.return
-nocheck Remove tier... phonoTID
+# call findtierbyname phono 0 1
+# phonoTID = findtierbyname.return
+# nocheck Remove tier... phonoTID
 if keep_ortho = 0
 call findtierbyname ortho 1 1
 orthoTID = findtierbyname.return
