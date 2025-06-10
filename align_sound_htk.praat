@@ -76,7 +76,7 @@ if nch=2
 stereoso = so
 so = Convert to mono
 Rename... 'name$'
-nowarn Save as WAV file... tmp/'name$'_mono.wav
+nowarn Save as FLAC file... tmp/'name$'_mono.flac
 endif
 
 elsif nloso = 1
@@ -98,11 +98,11 @@ monoso = Convert to mono
 elsif channel = 1 or channel = 2
 monoso = Extract one channel... channel
 endif
-nowarn Save as WAV file... tmp/'name$'_mono.wav
+nowarn Save as FLAC file... tmp/'name$'_mono.flac
 select sopart
 plus monoso
 Remove
-so = Open long sound file... tmp/'name$'_mono.wav
+so = Open long sound file... tmp/'name$'_mono.flac
 Rename... 'name$'
 endif
 endif
@@ -116,11 +116,11 @@ boolean ("Keep mono", 0)
 boolean ("Keep stereo", 0)
 endPause ("Continue", 1)
 if keep_mono = 0
-filedelete tmp/'name$'_mono.wav
+filedelete tmp/'name$'_mono.flac
 endif
 select stereoso
 if keep_stereo = 1
-nowarn Save as WAV file... tmp/'name$'_stereo.wav
+nowarn Save as FLAC file... tmp/'name$'_stereo.flac
 endif
 Remove
 select so
@@ -135,18 +135,18 @@ if nso = 1
 oldfsso = so
 so = Resample... 44100 5
 Rename... 'name$'
-nowarn Save as WAV file... tmp/'name$'_44100.wav
+nowarn Save as FLAC file... tmp/'name$'_44100.flac
 
 elsif nloso = 1
 pause Attempting to do Resample... 44100   5     If this fails, do it manually.
 oldfsso = so
 sopart = Extract part... 0 0 yes
 newfsso = Resample... 44100 5
-nowarn Save as WAV file... tmp/'name$'_44100.wav
+nowarn Save as FLAC file... tmp/'name$'_44100.flac
 select sopart
 plus newfsso
 Remove
-so = Open long sound file... tmp/'name$'_44100.wav
+so = Open long sound file... tmp/'name$'_44100.flac
 Rename... 'name$'
 endif
 endif
@@ -160,11 +160,11 @@ boolean ("Keep original", 0)
 boolean ("Keep resampled", 0)
 endPause ("Continue", 1)
 if keep_resampled = 0
-filedelete tmp/'name$'_44100.wav
+filedelete tmp/'name$'_44100.flac
 endif
 select oldfsso
 if keep_original = 1
-nowarn Save as WAV file... tmp/'name$'_'fs'.wav
+nowarn Save as FLAC file... tmp/'name$'_'fs'.flac
 endif
 Remove
 select so
