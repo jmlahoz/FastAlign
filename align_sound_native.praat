@@ -124,7 +124,6 @@ nowarn Save as FLAC file... tmp/'name$'_stereo.flac
 endif
 Remove
 select so
-plus tg
 endif
 ##}
 
@@ -165,11 +164,13 @@ endif
 for int from fromortho to toortho
 lab$ = Get label of interval... 'orthoTID' int
 if lab$ = "-" or lab$ = "_" or lab$ = " "
+# Make silent intervals really empty
 Set interval text... 'orthoTID' int 
 endif
 ini = Get start time of interval... 'orthoTID' int
 editor TextGrid 'name$'
 Move cursor to... ini
+# Specify language settings
 if int = fromortho
 if praatVersion >= 6036
 Alignment settings: "Spanish (Spain)", "yes", "yes", "yes"
@@ -177,6 +178,7 @@ else
 Alignment settings: "Spanish", "yes", "yes", "yes"
 endif
 endif
+# Apply native alignment
 nowarn Align interval
 if int = toortho
 Close
@@ -184,6 +186,7 @@ endif
 endeditor
 endfor ; int
 
+# Remove the temporary copy of ortho tier if that had been necessary
 call findtierbyname orthobak 0 1
 orthobakTID = findtierbyname.return
 if orthobakTID != 0
@@ -422,6 +425,10 @@ if open_sound_and_tg
 Edit
 endif
 
+##{ align_selected_interval
+# This transfers boundaries and labels from a temporary tier (origin) to a definitive tier (destiny)
+# The transfer is done only for a certain temporal range,
+# while preserving any other information previously existing on the destiny tier
 procedure align_selected_interval .originTID .destinyTID
 call findtierbyname ortho 1 1
 orthoTID = findtierbyname.return
@@ -453,3 +460,4 @@ Set interval text... '.destinyTID' '.targetint' '.lab$'
 endfor
 
 endproc
+##}
