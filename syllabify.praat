@@ -1,11 +1,11 @@
-# syllabify
+# FastAlign
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
 # Version 2025-06-02
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
-# This file is part of the plugin_SegmentSound.
-# This is free software; you can redistribute it and/or modify it
+# This file is part of FastAlign.
+# FastAlign free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License
 # as published by the Free Software Foundation
 # either version 3 of the License, or (at your option) any later version.
@@ -14,7 +14,7 @@
 # of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # For more details, you can find the GNU General Public License here:
 # http://www.gnu.org/licenses/gpl-3.0.en.html
-# This file runs on Praat, a software developed by Paul Boersma
+# FastAlign runs on Praat, a software developed by Paul Boersma
 # and David Weenink at University of Amsterdam.
 
 # This script takes a TextGrid with one tier named phones (+ possibly other tiers)
