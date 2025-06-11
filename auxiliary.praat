@@ -941,162 +941,162 @@ endproc
 # Converts any given interval tier to strict IPA
 procedure toipa .tiername$
 call findtierbyname '.tiername$' 1 1
-tierID = findtierbyname.return
-nint = Get number of intervals... 'tierID'
+.tierID = findtierbyname.return
+.nint = Get number of intervals... '.tierID'
 
-for int from 1 to nint
-lab$ = Get label of interval... 'tierID' 'int'
-lab2$ = ""
+for .int from 1 to .nint
+.lab$ = Get label of interval... '.tierID' '.int'
+.lab2$ = ""
 
-while length(lab$) > 0
+while length(.lab$) > 0
 
-etiqueta$ = mid$(lab$,1,1)
-if etiqueta$ = "\"
-tmp$ = mid$(lab$,1,6)
-if tmp$ = "\ep\~^" or tmp$ = "\as\~^" or tmp$ = "\ct\~^"
-etiqueta$ = mid$(lab$,1,6)
-lab$ = mid$(lab$,7,length(lab$)-6)
+.current_label$ = mid$(.lab$,1,1)
+if .current_label$ = "\"
+.tmp$ = mid$(.lab$,1,6)
+if .tmp$ = "\ep\~^" or .tmp$ = "\as\~^" or .tmp$ = "\ct\~^"
+.current_label$ = mid$(.lab$,1,6)
+.lab$ = mid$(.lab$,7,length(.lab$)-6)
 else
-etiqueta$ = mid$(lab$,1,3)
-lab$ = mid$(lab$,4,length(lab$)-3)
+.current_label$ = mid$(.lab$,1,3)
+.lab$ = mid$(.lab$,4,length(.lab$)-3)
 endif
-elsif etiqueta$ = "j"
-tmp$ = mid$(lab$,1,2)
-if tmp$ = "jj"
-etiqueta$ = mid$(lab$,1,2)
-lab$ = mid$(lab$,3,length(lab$)-2)
+elsif .current_label$ = "j"
+.tmp$ = mid$(.lab$,1,2)
+if .tmp$ = "jj"
+.current_label$ = mid$(.lab$,1,2)
+.lab$ = mid$(.lab$,3,length(.lab$)-2)
 else
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
-elsif etiqueta$ = "r"
-tmp$ = mid$(lab$,1,2)
-if tmp$ = "rr"
-etiqueta$ = mid$(lab$,1,2)
-lab$ = mid$(lab$,3,length(lab$)-2)
+elsif .current_label$ = "r"
+.tmp$ = mid$(.lab$,1,2)
+if .tmp$ = "rr"
+.current_label$ = mid$(.lab$,1,2)
+.lab$ = mid$(.lab$,3,length(.lab$)-2)
 else
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
-elsif index("eao9",etiqueta$) != 0
-tmp$ = mid$(lab$,2,1)
-if tmp$ = "~"
-etiqueta$ = mid$(lab$,1,2)
-lab$ = mid$(lab$,3,length(lab$)-2)
+elsif index("eao9",.current_label$) != 0
+.tmp$ = mid$(.lab$,2,1)
+if .tmp$ = "~"
+.current_label$ = mid$(.lab$,1,2)
+.lab$ = mid$(.lab$,3,length(.lab$)-2)
 else
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
-elsif index("iu",etiqueta$) != 0
-tmp$ = mid$(lab$,2,3)
-if tmp$ = "\nv"
-etiqueta$ = mid$(lab$,1,4)
-lab$ = mid$(lab$,5,length(lab$)-4)
+elsif index("iu",.current_label$) != 0
+.tmp$ = mid$(.lab$,2,3)
+if .tmp$ = "\nv"
+.current_label$ = mid$(.lab$,1,4)
+.lab$ = mid$(.lab$,5,length(.lab$)-4)
 else
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
-elsif etiqueta$ = "m" and .tiername$ = "syll"
-nextlab$ = Get label of interval... 'tierID' 'int'+1
-nextlab$ = replace$(nextlab$,"'","",0)
-nextlab$ = left$(nextlab$,1)
-if length(lab$) = 1
-if index("pbBm",nextlab$) != 0
+elsif .current_label$ = "m" and .tiername$ = "syll"
+.nextlab$ = Get label of interval... '.tierID' '.int'+1
+.nextlab$ = replace$(.nextlab$,"'","",0)
+.nextlab$ = left$(.nextlab$,1)
+if length(.lab$) = 1
+if index("pbBm",.nextlab$) != 0
 call findtierbyname words 1 1
 wordsTID = findtierbyname.return
-.syllend = Get end time of interval... 'tierID' 'int'
+.syllend = Get end time of interval... '.tierID' '.int'
 .word1 = Get low interval at time... 'wordsTID' '.syllend'
 .word2 = Get high interval at time... 'wordsTID' '.syllend'
 .word1$ = Get label of interval... 'wordsTID' '.word1'
 if '.word1' != '.word2'
 if right$(.word1$,1) = "m"
-etiqueta$ = "m"
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = "m"
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 else
-etiqueta$ = "n"
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = "n"
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
 elsif '.word1' = '.word2'
 if index(.word1$,"mp")!=0 or index(.word1$,"mb")!=0
-etiqueta$ = "m"
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = "m"
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 else
-etiqueta$ = "n"
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = "n"
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
 endif
-elsif index("pbBm",nextlab$) = 0
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
+elsif index("pbBm",.nextlab$) = 0
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
-elsif length(lab$) > 1
-# tmp$ = mid$(lab$,2,1)
-# if tmp$ = "f" or tmp$ = "m"
-# etiqueta$ = "n"
-# lab$ = mid$(lab$,2,length(lab$)-1)
+elsif length(.lab$) > 1
+# .tmp$ = mid$(.lab$,2,1)
+# if .tmp$ = "f" or .tmp$ = "m"
+# .current_label$ = "n"
+# .lab$ = mid$(.lab$,2,length(.lab$)-1)
 # else
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 # endif
 endif
-elsif etiqueta$ = "t"
-tmp$ = mid$(lab$,1,2)
-if tmp$ = "tS"
-etiqueta$ = mid$(lab$,1,2)
-lab$ = mid$(lab$,3,length(lab$)-2)
+elsif .current_label$ = "t"
+.tmp$ = mid$(.lab$,1,2)
+if .tmp$ = "tS"
+.current_label$ = mid$(.lab$,1,2)
+.lab$ = mid$(.lab$,3,length(.lab$)-2)
 else
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
 else
-etiqueta$ = mid$(lab$,1,1)
-lab$ = mid$(lab$,2,length(lab$)-1)
-endif
-
-
-if etiqueta$ = "t"
-	etiqueta_transformada$ ="t\Nv"
-elsif etiqueta$ = "tS"
-	etiqueta_transformada$ ="t\li\sh"
-elsif etiqueta$ = "T"
-	etiqueta_transformada$ ="\tf"
-elsif etiqueta$ = "z"
-	etiqueta_transformada$ = "s"
-elsif etiqueta$ = "B" or etiqueta$ = "b"
-	etiqueta_transformada$ ="\bf\Tv"
-elsif etiqueta$ = "D" or etiqueta$ = "d"
-	etiqueta_transformada$ ="\dh\Tv"
-elsif etiqueta$ = "jj" or etiqueta$ = "L"
-	etiqueta_transformada$ ="\jc\Tv"
-elsif etiqueta$ = "G" or etiqueta$ = "g"
-	etiqueta_transformada$ ="\gf\Tv"
-elsif etiqueta$ = "J"
-	etiqueta_transformada$ ="\nj"
-elsif etiqueta$ = "N"
-	etiqueta_transformada$ = "n"
-elsif etiqueta$ = "4"
-	etiqueta_transformada$ ="\fh"
-elsif etiqueta$ = "j"
-	etiqueta_transformada$ = "i\nv"
-elsif etiqueta$ = "w"
-	etiqueta_transformada$ = "u\nv"
-elsif etiqueta$ = "'"
-	etiqueta_transformada$ = "\'1"
-elsif etiqueta$ = ""
-	etiqueta_transformada$ =""
-else
-	etiqueta_transformada$ = "'etiqueta$'"
+.current_label$ = mid$(.lab$,1,1)
+.lab$ = mid$(.lab$,2,length(.lab$)-1)
 endif
 
 
-lab2$ = lab2$ + etiqueta_transformada$
+if .current_label$ = "t"
+	.transformed_label$ ="t\Nv"
+elsif .current_label$ = "tS"
+	.transformed_label$ ="t\li\sh"
+elsif .current_label$ = "T"
+	.transformed_label$ ="\tf"
+elsif .current_label$ = "z"
+	.transformed_label$ = "s"
+elsif .current_label$ = "B" or .current_label$ = "b"
+	.transformed_label$ ="\bf\Tv"
+elsif .current_label$ = "D" or .current_label$ = "d"
+	.transformed_label$ ="\dh\Tv"
+elsif .current_label$ = "jj" or .current_label$ = "L"
+	.transformed_label$ ="\jc\Tv"
+elsif .current_label$ = "G" or .current_label$ = "g"
+	.transformed_label$ ="\gf\Tv"
+elsif .current_label$ = "J"
+	.transformed_label$ ="\nj"
+elsif .current_label$ = "N"
+	.transformed_label$ = "n"
+elsif .current_label$ = "4"
+	.transformed_label$ ="\fh"
+elsif .current_label$ = "j"
+	.transformed_label$ = "i\nv"
+elsif .current_label$ = "w"
+	.transformed_label$ = "u\nv"
+elsif .current_label$ = "'"
+	.transformed_label$ = "\'1"
+elsif .current_label$ = ""
+	.transformed_label$ =""
+else
+	.transformed_label$ = "'.current_label$'"
+endif
+
+
+.lab2$ = .lab2$ + .transformed_label$
 # Avoid hyperspecification of diacritics if the origin was already IPA
 # Given the previous conditions, this is only necessary in the case of the 'bridge' for t̪
-lab2$ = replace$(lab2$,"\Nv\Nv","\Nv",0)
+.lab2$ = replace$(.lab2$,"\Nv\Nv","\Nv",0)
 
 endwhile
 
-Set interval text... 'tierID' 'int' 'lab2$'
+Set interval text... '.tierID' '.int' '.lab2$'
 
 endfor
 

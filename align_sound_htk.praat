@@ -662,16 +662,16 @@ endproc
 
 procedure checkOrthoAndPhonoTiers
 # Check if phonoTID and orthoTID have the same boundaries
-nint_phono = Get number of intervals... phonoTID
-nint_ortho = Get number of intervals... orthoTID
-if nint_phono != nint_ortho
+.nint_phono = Get number of intervals... phonoTID
+.nint_ortho = Get number of intervals... orthoTID
+if .nint_phono != .nint_ortho
 exit phono and ortho tiers should have the same number of intervals. Exiting...
 endif
-for int from 1 to nint_phono
-ini_phono = Get start time of interval... phonoTID int
-ini_ortho = Get start time of interval... orthoTID int
-if ini_phono != ini_ortho
-exit Starting points of interval 'int' differ in phono and ortho tiers ('ini_phono:3', 'ini_ortho:3'). Exiting...
+for .int from 1 to .nint_phono
+.ini_phono = Get start time of interval... phonoTID .int
+.ini_ortho = Get start time of interval... orthoTID .int
+if .ini_phono != .ini_ortho
+exit Starting points of interval '.int' differ in phono and ortho tiers ('.ini_phono:3', '.ini_ortho:3'). Exiting...
 endif
 endfor
 endproc
@@ -754,85 +754,85 @@ endproc
 
 procedure dediacritize .s$
 # Characters are converted into their corresponding octal codes
-      .s$=replace_regex$(.s$,"č","\\304\\215",0);
-      .s$=replace_regex$(.s$,"Ľ","\\304\\275",0);
-      .s$=replace_regex$(.s$,"ľ","\\304\\276",0);      
-      .s$=replace_regex$(.s$,"š","\\305\\241",0);
-      .s$=replace_regex$(.s$,"ť","\\305\\245",0);
-      .s$=replace_regex$(.s$,"Ž","\\305\\275",0);
-      .s$=replace_regex$(.s$,"ž","\\305\\276",0);
-      .s$=replace_regex$(.s$,"à","\\340",0);
-      .s$=replace_regex$(.s$,"á","\\341",0);
-      .s$=replace_regex$(.s$,"â","\\342",0);
-      .s$=replace_regex$(.s$,"ã","\\343",0);
-      .s$=replace_regex$(.s$,"ä","\\344",0);
-      .s$=replace_regex$(.s$,"å","\\345",0);
-      .s$=replace_regex$(.s$,"æ","\\346",0);
-      .s$=replace_regex$(.s$,"ç","\\347",0);
-      .s$=replace_regex$(.s$,"è","\\350",0);
-      .s$=replace_regex$(.s$,"é","\\351",0);
-      .s$=replace_regex$(.s$,"ê","\\352",0);
-      .s$=replace_regex$(.s$,"ë","\\353",0);
-      .s$=replace_regex$(.s$,"ì","\\354",0);
-      .s$=replace_regex$(.s$,"í","\\355",0);
-      .s$=replace_regex$(.s$,"î","\\356",0);
-      .s$=replace_regex$(.s$,"ï","\\357",0);
-      .s$=replace_regex$(.s$,"ñ","\\361",0);
-      .s$=replace_regex$(.s$,"ò","\\362",0);
-      .s$=replace_regex$(.s$,"ó","\\363",0);
-      .s$=replace_regex$(.s$,"ô","\\364",0);
-      .s$=replace_regex$(.s$,"õ","\\365",0);
-      .s$=replace_regex$(.s$,"ö","\\366",0);
-      .s$=replace_regex$(.s$,"ù","\\371",0);
-      .s$=replace_regex$(.s$,"ú","\\372",0);
-      .s$=replace_regex$(.s$,"û","\\373",0);
-      .s$=replace_regex$(.s$,"ü","\\374",0);
-      .s$=replace_regex$(.s$,"ý","\\375",0);      
+.s$=replace_regex$(.s$,"č","\\304\\215",0)
+.s$=replace_regex$(.s$,"Ľ","\\304\\275",0)
+.s$=replace_regex$(.s$,"ľ","\\304\\276",0)
+.s$=replace_regex$(.s$,"š","\\305\\241",0)
+.s$=replace_regex$(.s$,"ť","\\305\\245",0)
+.s$=replace_regex$(.s$,"Ž","\\305\\275",0)
+.s$=replace_regex$(.s$,"ž","\\305\\276",0)
+.s$=replace_regex$(.s$,"à","\\340",0)
+.s$=replace_regex$(.s$,"á","\\341",0)
+.s$=replace_regex$(.s$,"â","\\342",0)
+.s$=replace_regex$(.s$,"ã","\\343",0)
+.s$=replace_regex$(.s$,"ä","\\344",0)
+.s$=replace_regex$(.s$,"å","\\345",0)
+.s$=replace_regex$(.s$,"æ","\\346",0)
+.s$=replace_regex$(.s$,"ç","\\347",0)
+.s$=replace_regex$(.s$,"è","\\350",0)
+.s$=replace_regex$(.s$,"é","\\351",0)
+.s$=replace_regex$(.s$,"ê","\\352",0)
+.s$=replace_regex$(.s$,"ë","\\353",0)
+.s$=replace_regex$(.s$,"ì","\\354",0)
+.s$=replace_regex$(.s$,"í","\\355",0)
+.s$=replace_regex$(.s$,"î","\\356",0)
+.s$=replace_regex$(.s$,"ï","\\357",0)
+.s$=replace_regex$(.s$,"ñ","\\361",0)
+.s$=replace_regex$(.s$,"ò","\\362",0)
+.s$=replace_regex$(.s$,"ó","\\363",0)
+.s$=replace_regex$(.s$,"ô","\\364",0)
+.s$=replace_regex$(.s$,"õ","\\365",0)
+.s$=replace_regex$(.s$,"ö","\\366",0)
+.s$=replace_regex$(.s$,"ù","\\371",0)
+.s$=replace_regex$(.s$,"ú","\\372",0)
+.s$=replace_regex$(.s$,"û","\\373",0)
+.s$=replace_regex$(.s$,"ü","\\374",0)
+.s$=replace_regex$(.s$,"ý","\\375",0)      
 endproc
 
 procedure diacritize .s$
 # Characters are restored from their corresponding octal codes
-      .s$=replace_regex$(.s$,"\\304\\215","č",0);
-      .s$=replace_regex$(.s$,"\\304\\275","Ľ",0);
-      .s$=replace_regex$(.s$,"\\304\\276","ľ",0);      
-      .s$=replace_regex$(.s$,"\\305\\241","š",0);
-      .s$=replace_regex$(.s$,"\\305\\245","ť",0);
-      .s$=replace_regex$(.s$,"\\305\\275","Ž",0);
-      .s$=replace_regex$(.s$,"\\305\\276","ž",0);
-	  .s$=replace_regex$(.s$,"\\301","Á",0);
-      .s$=replace_regex$(.s$,"\\311","É",0);
-      .s$=replace_regex$(.s$,"\\315","Í",0);
-      .s$=replace_regex$(.s$,"\\321","Ñ",0);
-      .s$=replace_regex$(.s$,"\\323","Ó",0);
-      .s$=replace_regex$(.s$,"\\332","Ú",0);
-      .s$=replace_regex$(.s$,"\\334","Ü",0);
-	  .s$=replace_regex$(.s$,"\\340","à",0);
-      .s$=replace_regex$(.s$,"\\341","á",0);
-      .s$=replace_regex$(.s$,"\\342","â",0);
-      .s$=replace_regex$(.s$,"\\343","ã",0);
-      .s$=replace_regex$(.s$,"\\344","ä",0);
-      .s$=replace_regex$(.s$,"\\345","å",0);
-      .s$=replace_regex$(.s$,"\\346","æ",0);
-      .s$=replace_regex$(.s$,"\\347","ç",0);
-      .s$=replace_regex$(.s$,"\\350","è",0);
-      .s$=replace_regex$(.s$,"\\351","é",0);
-      .s$=replace_regex$(.s$,"\\352","ê",0);
-      .s$=replace_regex$(.s$,"\\353","ë",0);
-      .s$=replace_regex$(.s$,"\\354","ì",0);
-      .s$=replace_regex$(.s$,"\\355","í",0);
-      .s$=replace_regex$(.s$,"\\356","î",0);
-      .s$=replace_regex$(.s$,"\\357","ï",0);
-      .s$=replace_regex$(.s$,"\\361","ñ",0);
-      .s$=replace_regex$(.s$,"\\362","ò",0);
-      .s$=replace_regex$(.s$,"\\363","ó",0);
-      .s$=replace_regex$(.s$,"\\364","ô",0);
-      .s$=replace_regex$(.s$,"\\365","õ",0);
-      .s$=replace_regex$(.s$,"\\366","ö",0);
-      .s$=replace_regex$(.s$,"\\371","ù",0);
-      .s$=replace_regex$(.s$,"\\372","ú",0);
-      .s$=replace_regex$(.s$,"\\373","û",0);
-      .s$=replace_regex$(.s$,"\\374","ü",0);
-      .s$=replace_regex$(.s$,"\\375","ý",0);
+.s$=replace_regex$(.s$,"\\304\\215","č",0)
+.s$=replace_regex$(.s$,"\\304\\275","Ľ",0)
+.s$=replace_regex$(.s$,"\\304\\276","ľ",0)
+.s$=replace_regex$(.s$,"\\305\\241","š",0)
+.s$=replace_regex$(.s$,"\\305\\245","ť",0)
+.s$=replace_regex$(.s$,"\\305\\275","Ž",0)
+.s$=replace_regex$(.s$,"\\305\\276","ž",0)
+.s$=replace_regex$(.s$,"\\301","Á",0)
+.s$=replace_regex$(.s$,"\\311","É",0)
+.s$=replace_regex$(.s$,"\\315","Í",0)
+.s$=replace_regex$(.s$,"\\321","Ñ",0)
+.s$=replace_regex$(.s$,"\\323","Ó",0)
+.s$=replace_regex$(.s$,"\\332","Ú",0)
+.s$=replace_regex$(.s$,"\\334","Ü",0)
+.s$=replace_regex$(.s$,"\\340","à",0)
+.s$=replace_regex$(.s$,"\\341","á",0)
+.s$=replace_regex$(.s$,"\\342","â",0)
+.s$=replace_regex$(.s$,"\\343","ã",0)
+.s$=replace_regex$(.s$,"\\344","ä",0)
+.s$=replace_regex$(.s$,"\\345","å",0)
+.s$=replace_regex$(.s$,"\\346","æ",0)
+.s$=replace_regex$(.s$,"\\347","ç",0)
+.s$=replace_regex$(.s$,"\\350","è",0)
+.s$=replace_regex$(.s$,"\\351","é",0)
+.s$=replace_regex$(.s$,"\\352","ê",0)
+.s$=replace_regex$(.s$,"\\353","ë",0)
+.s$=replace_regex$(.s$,"\\354","ì",0)
+.s$=replace_regex$(.s$,"\\355","í",0)
+.s$=replace_regex$(.s$,"\\356","î",0)
+.s$=replace_regex$(.s$,"\\357","ï",0)
+.s$=replace_regex$(.s$,"\\361","ñ",0)
+.s$=replace_regex$(.s$,"\\362","ò",0)
+.s$=replace_regex$(.s$,"\\363","ó",0)
+.s$=replace_regex$(.s$,"\\364","ô",0)
+.s$=replace_regex$(.s$,"\\365","õ",0)
+.s$=replace_regex$(.s$,"\\366","ö",0)
+.s$=replace_regex$(.s$,"\\371","ù",0)
+.s$=replace_regex$(.s$,"\\372","ú",0)
+.s$=replace_regex$(.s$,"\\373","û",0)
+.s$=replace_regex$(.s$,"\\374","ü",0)
+.s$=replace_regex$(.s$,"\\375","ý",0)
 endproc
 
 procedure getrec recfile$ phonesTID wordsTID phonoini
