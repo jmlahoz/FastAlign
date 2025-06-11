@@ -138,7 +138,7 @@ phonotable = Down to TableOfReal (any)
 phonostr1 = Extract row labels as Strings
 
 # Reset temporary files
-createDirectory ("tmp")
+nocheck createDirectory ("tmp")
 filedelete tmp/tout.txt
 
 Text writing preferences... try ISO Latin-1, then UTF-16

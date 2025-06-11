@@ -30,6 +30,7 @@
 # It yields phones, syll, and words tiers aligned to the contents of the sound.
 
 include auxiliary.praat
+nocheck createDirectory ("tmp")
 
 ##{ Dialog window
 form 3. Align sound (HTK)...
