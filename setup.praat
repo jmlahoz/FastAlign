@@ -29,5 +29,6 @@ Add menu command... "Objects" "Control" "Align sound (native)..." "FastAlign" 1 
 endif
 Add menu command... "Objects" "Control" "-" "FastAlign" 1
 Add menu command... "Objects" "Control" "Create syll tier from phones..." "FastAlign" 1 syllabify.praat
+Add menu command... "Objects" "Control" "Convert SAMPA to IPA..." "FastAlign" 1 convert_sampa_to_ipa.praat
 Add menu command... "Objects" "Control" "-" "FastAlign" 1
 Add menu command... "Objects" "Control" "About" "FastAlign" 1 about.praat
