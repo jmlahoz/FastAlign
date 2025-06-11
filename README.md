@@ -63,6 +63,10 @@ First, phonetize the ortho tier to create a temporary phono tier
 Then apply HTK alignment.
 As an alternative, just apply native alignment (no prior phonetization is needed in that case).
 
+If you have an already segmented TextGrid and want to re-try segmentation of just one ortho interval, 
+you may choose to do so by running "Align sound (native)". 
+For just that one interval, information will be overwritten regardless of the overwrite checkbox.
+
 Syllabification and IPA transcription are included in the alignment 
 but are also available as separate functions for your convenience.
 

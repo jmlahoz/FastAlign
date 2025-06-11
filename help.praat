@@ -39,9 +39,9 @@ elsif macintosh = 1 or unix = 1
 printline Segmentation is based on Praat native alignment functions.
 endif
 printline
-if windows = 1
 printline -------------------------------------------------------------------------
 printline
+if windows = 1
 printline Run one-click segmentation with the function FastAlign.
 printline
 printline A step-by-step segmentation is also possible:
@@ -50,8 +50,15 @@ printline (which consists of a phonetic transcription in SAMPA).
 printline Then apply HTK alignment.
 printline
 printline As an alternative, just apply native alignment (no prior phonetization is needed in that case).
-printline
+printline If you have an already segmented TextGrid and want to re-try segmentation of just one ortho interval,
+printline you may choose to do so by running "Align sound (native)".
+printline For just that one interval, information will be overwritten regardless of the overwrite checkbox.
+elsif macintosh = 1 or unix = 1
+printline If you have an already segmented TextGrid and want to re-try segmentation of just one ortho interval,
+printline you may choose to do so by running "Align sound (native)".
+printline For just that one interval, information will be overwritten regardless of the overwrite checkbox.
 endif
+printline
 printline -------------------------------------------------------------------------
 printline
 printline Syllabification and IPA transcription are included in the alignment
