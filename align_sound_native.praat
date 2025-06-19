@@ -275,6 +275,7 @@ Replace interval text... phonesTID fromphone tophone b B Literals
 Replace interval text... phonesTID fromphone tophone d D Literals
 Replace interval text... phonesTID fromphone tophone ɡ G Literals
 Replace interval text... phonesTID fromphone tophone ʎ jj Literals
+Replace interval text... phonesTID fromphone tophone ʝ jj Literals
 Replace interval text... phonesTID fromphone tophone ɲ J Literals
 Replace interval text... phonesTID fromphone tophone ŋ n Literals
 Replace interval text... phonesTID fromphone tophone ɾ 4 Literals
