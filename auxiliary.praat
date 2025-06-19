@@ -232,10 +232,10 @@ endproc
 # but then you want to leave everything as is.
 procedure getshow
 editorinfo$ = Editor info
-pitch_show = extractNumber (info$, "Pitch show: ")
-intensity_show = extractNumber (info$, "Intensity show: ")
-formant_show = extractNumber (info$, "Formant show: ")
-pulses_show = extractNumber (info$, "Pulses show: ")
+pitch_show = extractNumber (editorinfo$, "Pitch show: ")
+intensity_show = extractNumber (editorinfo$, "Intensity show: ")
+formant_show = extractNumber (editorinfo$, "Formant show: ")
+pulses_show = extractNumber (editorinfo$, "Pulses show: ")
 endproc
 ##}
 
