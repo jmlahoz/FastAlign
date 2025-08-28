@@ -241,6 +241,91 @@ tg = selected("TextGrid")
 call mark_stress 'tg' 'syllTID' 'wordsTID'
 ##}
 
+##{ Syllable merger
+
+# Define instrinsically unstressed words
+clitics = Read Table from comma-separated file... clitics.csv
+nclit = Get number of rows
+
+select tg
+nword = Get number of intervals... 'wordsTID'
+
+# Swipe text from start to end
+iword = 1
+while iword <= nword
+wordini = Get start time of interval... 'wordsTID' iword
+isyll = Get high interval at time... 'syllTID' wordini
+syllini = Get start time of interval... 'syllTID' isyll
+
+if syllini = wordini ; word boundary is not resyllabified
+lab$ = Get label of interval... 'syllTID' isyll
+if lab$ = ""
+lab$ = "_"
+endif
+
+if index(vowels$,left$(lab$,1)) != 0 ; word starts with any (unstressed) vowel
+prevlab$ = "#"
+if isyll > 1
+prevlab$ = Get label of interval... 'syllTID' isyll-1
+if prevlab$ = ""
+prevlab$ = "_"
+endif
+endif
+if index(vowels$,right$(prevlab$,1)) != 0 ; previous word also ends with a vowel
+Remove boundary at time... 'syllTID' 'syllini'
+endif ; previous word also ends with a vowel
+
+elsif left$(lab$,1) = "'" and index(vowels$,mid$(lab$,2,1)) != 0 ; word starts with any (stressed) vowel
+prevlab$ = "#"
+if isyll > 1
+prevlab$ = Get label of interval... 'syllTID' isyll-1
+if prevlab$ = ""
+prevlab$ = "_"
+endif
+endif
+if index(vowels$,right$(prevlab$,1)) != 0 ; previous word also ends with a vowel
+prevword$ = "#"
+if iword > 1
+prevword$ = Get label of interval... 'wordsTID' iword-1
+if prevword$ = ""
+prevword$ = "_"
+endif
+endif
+
+# Check if the previous word is an unstressed word
+isclitic = 0
+for iclit from 1 to nclit
+select clitics
+iclitmay$ = Get value... iclit nacmay
+iclitmin$ = Get value... iclit nacmin
+if prevword$ = iclitmay$ or prevword$ = iclitmin$
+isclitic = 1
+iclit = nclit
+endif
+endfor ; to nclit
+select tg
+
+if isclitic = 1
+Remove boundary at time... 'syllTID' 'syllini'
+# Stress mark must be placed at the beginning of the new resulting syllable
+newsyll$ = Get label of interval... 'syllTID' isyll-1
+newsyll$ = replace$(newsyll$,"'","",0)
+newsyll$ = "'" + newsyll$
+Set interval text... 'syllTID' isyll-1 'newsyll$'
+endif ; (word-initial vowel is stressed but) previous word is an unstressed word
+endif ; previous word also ends with a vowel
+
+endif ; word starts with any vowel
+endif ; word boundary is not resyllabified
+
+iword = iword+1
+endwhile
+
+select clitics
+Remove
+select tg
+##}
+
 ##{ Transfer syllables to proper tier if only one interval was selected
 if interval_number != undefined
 call findtierbyname syllbak 0 1
