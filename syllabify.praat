@@ -326,6 +326,26 @@ Remove
 select tg
 ##}
 
+##{ Conjunction "y" must not become a consonant between vowels
+select tg
+nint = Get number of intervals... 'phonesTID'
+for int from 1 to nint
+lab$ = Get label of interval... 'phonesTID' int
+if lab$ = "jj"
+ini = Get start time of interval... 'phonesTID' int
+iword = Get high interval at time... 'wordsTID' ini
+word$ = Get label of interval... 'wordsTID' iword
+if word$ = "y"
+Set interval text... 'phonesTID' int j
+isyll = Get high interval at time... 'syllTID' ini
+syll$ = Get label of interval... 'syllTID' isyll
+syll$ = replace$(syll$,"jj","j",1)
+Set interval text... 'syllTID' isyll 'syll$'
+endif
+endif
+endfor
+##}
+
 ##{ Transfer syllables to proper tier if only one interval was selected
 if interval_number != undefined
 call findtierbyname syllbak 0 1
