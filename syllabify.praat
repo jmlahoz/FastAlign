@@ -272,7 +272,9 @@ prevlab$ = "_"
 endif
 endif
 if index(vowels$,right$(prevlab$,1)) != 0 ; previous word also ends with a vowel
+if right$(prevlab$,2) != "ju" and right$(prevlab$,2) != "wi" ; merger will not cause a sonority valley
 Remove boundary at time... 'syllTID' 'syllini'
+endif
 endif ; previous word also ends with a vowel
 
 elsif left$(lab$,1) = "'" and index(vowels$,mid$(lab$,2,1)) != 0 ; word starts with any (stressed) vowel
@@ -284,6 +286,8 @@ prevlab$ = "_"
 endif
 endif
 if index(vowels$,right$(prevlab$,1)) != 0 ; previous word also ends with a vowel
+if right$(prevlab$,2) != "ju" and right$(prevlab$,2) != "wi" ; merger will not cause a sonority valley
+
 prevword$ = "#"
 if iword > 1
 prevword$ = Get label of interval... 'wordsTID' iword-1
@@ -313,6 +317,7 @@ newsyll$ = replace$(newsyll$,"'","",0)
 newsyll$ = "'" + newsyll$
 Set interval text... 'syllTID' isyll-1 'newsyll$'
 endif ; (word-initial vowel is stressed but) previous word is an unstressed word
+endif
 endif ; previous word also ends with a vowel
 
 endif ; word starts with any vowel
