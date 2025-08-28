@@ -76,7 +76,10 @@ obstruents$[3] = "k"
 obstruents$[4] = "B"
 obstruents$[5] = "D"
 obstruents$[6] = "G"
-obstruents$[7] = "f"
+obstruents$[7] = "b"
+obstruents$[8] = "d"
+obstruents$[9] = "g"
+obstruents$[10] = "f"
 consonants$[1] = "p"
 consonants$[2] = "t"
 consonants$[3] = "tS"
@@ -84,17 +87,23 @@ consonants$[4] = "k"
 consonants$[5] = "f"
 consonants$[6] = "T"
 consonants$[7] = "s"
-consonants$[8] = "x"
-consonants$[9] = "B"
-consonants$[10] = "D"
-consonants$[11] = "jj"
-consonants$[12] = "G"
-consonants$[13] = "m"
-consonants$[14] = "n"
-consonants$[15] = "J"
-consonants$[16] = "l"
-consonants$[17] = "4"
-consonants$[18] = "r"
+consonants$[8] = "z"
+consonants$[9] = "x"
+consonants$[10] = "B"
+consonants$[11] = "D"
+consonants$[12] = "jj"
+consonants$[13] = "G"
+consonants$[14] = "b"
+consonants$[15] = "d"
+consonants$[16] = "g"
+consonants$[17] = "m"
+consonants$[18] = "n"
+consonants$[19] = "N"
+consonants$[20] = "J"
+consonants$[21] = "l"
+consonants$[22] = "L"
+consonants$[23] = "4"
+consonants$[24] = "r"
 ##}
 
 nint = Get number of intervals... 'syllTID'
@@ -152,7 +161,7 @@ if lab$ = ""
 lab$ = "_"
 endif
 
-for cons from 1 to 18
+for cons from 1 to 24
 if lab$ = consonants$[cons]
 nextlab$ = "#"
 if int < nint
@@ -168,7 +177,7 @@ if index(nextlab$,vowels$[vow]) != 0
 endif
 endfor ; vow to 5
 endif
-endfor ; cons to 18
+endfor ; cons to 24
 int = int+1
 endwhile
 ##}
@@ -184,7 +193,7 @@ if lab$ = ""
 lab$ = "_"
 endif
 
-for obs from 1 to 7
+for obs from 1 to 10
 if lab$ = obstruents$[obs]
 nextlab$ = "#"
 if int < nint
@@ -200,7 +209,7 @@ if left$(nextlab$,1) = liquids$[liq]
 endif
 endfor ; liq to 2
 endif
-endfor ; obs to 7
+endfor ; obs to 10
 int = int+1
 endwhile
 ##}
@@ -216,11 +225,11 @@ if lab$ = ""
 lab$ = "_"
 endif
 
-for cons from 1 to 18
+for cons from 1 to 24
 if lab$ = consonants$[cons]
 @rmini
 endif
-endfor ; cons to 18
+endfor ; cons to 24
 int = int+1
 endwhile
 ##}
