@@ -413,8 +413,6 @@ endif ; phone$ = "j"
 endfor ; to tophone
 ##}
 
-##}
-
 ##{ Phonemic transcription of /n/ before labial
 for iphone from fromphone to tophone
 phone$ = Get label of interval... 'phonesTID' iphone
@@ -446,6 +444,8 @@ endif ; nextphone$ is labial
 
 endif ; phone$ = "m"
 endfor ; to tophone
+##}
+
 ##}
 
 ##{ Remove punctuation from words tier
