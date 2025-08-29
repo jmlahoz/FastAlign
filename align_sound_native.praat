@@ -310,48 +310,51 @@ endfor ; to toword
 ##}
 
 ##{ Diphthongs and triphthongs
-for int from fromphone to tophone
-lab$ = Get label of interval... 'phonesTID' int
-if lab$ = "aw" or lab$ = "ew" or lab$ = "ow" or lab$ = "aj" or lab$ = "ej" or lab$ = "oj"
+for iphone from fromphone to tophone
+phone$ = Get label of interval... 'phonesTID' iphone
+if phone$ = "aw" or phone$ = "ew" or phone$ = "ow" or phone$ = "aj" or phone$ = "ej" or phone$ = "oj"
 # Bisegmental, not monosegmental diphthongs
-nucleus$ = left$(lab$,1)
-paravowel$ = right$(lab$,1)
-ini = Get start time of interval... 'phonesTID' int
-end = Get end time of interval... 'phonesTID' int
-mid = (ini+end)/2
-Insert boundary... 'phonesTID' mid
-Set interval text... 'phonesTID' int 'nucleus$'
+nucleus$ = left$(phone$,1)
+paravowel$ = right$(phone$,1)
+phoneini = Get start time of interval... 'phonesTID' iphone
+phoneend = Get end time of interval... 'phonesTID' iphone
+phonemid = (phoneini+phoneend)/2
+Insert boundary... 'phonesTID' phonemid
+Set interval text... 'phonesTID' iphone 'nucleus$'
 if paravowel$ = "j"
-Set interval text... 'phonesTID' int+1 j
+Set interval text... 'phonesTID' iphone+1 j
 elsif paravowel$ = "w"
-Set interval text... 'phonesTID' int+1 w
+Set interval text... 'phonesTID' iphone+1 w
 endif
-int = int+1
-tophone = tophone+1
-elsif lab$ = "i" or lab$ = "u"
-ini = Get start time of interval... 'phonesTID' int
-iword = Get interval at time... 'wordsTID' ini
+iphone = iphone+1 ; due to boundary insertion
+tophone = tophone+1 ; due to boundary insertion
+elsif phone$ = "i" or phone$ = "u"
+phoneini = Get start time of interval... 'phonesTID' iphone
+iword = Get low interval at time... 'wordsTID' phoneini
+jword = Get high interval at time... 'wordsTID' phoneini
 word$ = Get label of interval... 'wordsTID' iword
-prev1lab$ = "#"
-prev2lab$ = "#"
-if int > 2
-prev1lab$ = Get label of interval... 'phonesTID' int-1
-prev2lab$ = Get label of interval... 'phonesTID' int-2
-if prev1lab$ = ""
-prev1lab$ = "_"
+prev1phone$ = "#"
+prev2phone$ = "#"
+if iphone-2 >= fromphone
+prev1phone$ = Get label of interval... 'phonesTID' iphone-1
+prev2phone$ = Get label of interval... 'phonesTID' iphone-2
+if prev1phone$ = ""
+prev1phone$ = "_"
 endif
-if prev2lab$ = ""
-prev2lab$ = "_"
+if prev2phone$ = ""
+prev2phone$ = "_"
 endif
 endif
-if (index("eao",prev1lab$) != 0 and index("jw",prev2lab$) != 0)
-... or (index("eao",prev1lab$) != 0 and index(word$,"í") = 0 and index(word$,"ú") = 0)
+if (index("jw",prev2phone$) != 0 and index("eao",prev1phone$) != 0)
+... or (index("eao",prev1phone$) != 0 and index(word$,"í") = 0 and index(word$,"ú") = 0)
 # rising + falling sonority forms a triphthong
 # ortho éáó + iu forms a diphthong
-if lab$ = "i"
-Set interval text... 'phonesTID' int j
-elsif lab$ = "u"
-Set interval text... 'phonesTID' int w
+if iword = jword ; only when those sequences occur word-internally
+if phone$ = "i"
+Set interval text... 'phonesTID' iphone j
+elsif phone$ = "u"
+Set interval text... 'phonesTID' iphone w
+endif
 endif
 endif
 endif
