@@ -394,6 +394,22 @@ endif ; phone$ = "i" or phone$ = "u"
 endfor ; to tophone
 ##}
 
+##{ Sonority valleys
+# Keep word-final palatal paravowel from consonantizing before vowel-initial word (eg. "muy a menudo" -/-> "mu ya menudo")
+for iphone from fromphone to tophone
+phone$ = Get label of interval... 'phonesTID' iphone
+if phone$ = "j" and iphone+1 <= tophone
+nextphone$ = Get label of interval... 'phonesTID' iphone+1
+if nextphone$ = "j"
+phoneend = Get end time of interval... 'phonesTID' iphone
+Remove boundary at time... 'phonesTID' phoneend
+Set interval text... 'phonesTID' iphone j
+tophone = tophone - 1 ; due to boundary removal
+endif ; nextphone$ = "j"
+endif ; phone$ = "j"
+endfor ; to tophone
+##}
+
 ##}
 
 ##{ Phonemic transcription of /n/ before labial
