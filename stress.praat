@@ -50,6 +50,43 @@ acvowel$[10] = "Ú"
 clitics = Read Table from comma-separated file... clitics.csv
 nclit = Get number of rows
 
+# Define words ending in -mente other than adverbs
+mente_noadv = Read Table from comma-separated file... mente_noadv.csv
+nmente = Get number of rows
+
+##{ Split -mente adverbs in two words (and flag suffix for later re-merge)
+select tg
+nword = Get number of intervals... 'wordsTID'
+for iword from 1 to nword
+select tg
+word$ = Get label of interval... 'wordsTID' iword
+if right$(word$,5) = "mente"
+for imente from 1 to nmente
+select mente_noadv
+imente$ = Get value... imente noadv
+if word$ = imente$
+goto mente_is_solved
+endif
+endfor
+
+select tg
+wordbase$ = word$ - "mente"
+wordend = Get end time of interval... 'wordsTID' iword
+suffix_lastphone = Get low interval at time... 'phonesTID' wordend
+suffix_firstphone = suffix_lastphone - 4
+suffixini = Get start time of interval... 'phonesTID' suffix_firstphone
+Insert boundary... 'wordsTID' suffixini
+Set interval text... 'wordsTID' iword 'wordbase$'
+Set interval text... 'wordsTID' iword+1 ADVmente
+iword = iword + 1
+nword = nword + 1
+
+label mente_is_solved
+endif ; ends in -mente
+endfor ; to nword
+##}
+
+##{ Calculate stress
 select tg
 nword = Get number of intervals... 'wordsTID'
 for iword from 1 to nword
@@ -136,8 +173,30 @@ Set interval text... 'syllTID' stressedsyll 'stressedsyll$'
 
 endif ; isclitic = 0
 endfor ; to nword
+##}
+
+##{ Re-merge -mente adverbs
+select tg
+nword = Get number of intervals... 'wordsTID'
+for iword from 1 to nword
+select tg
+word$ = Get label of interval... 'wordsTID' iword
+if word$ = "ADVmente"
+
+wordbase$ = Get label of interval... 'wordsTID' iword-1
+adverb$ = wordbase$ + "mente"
+wordini = Get start time of interval... 'wordsTID' iword
+Remove boundary at time... 'wordsTID' wordini
+Set interval text... 'wordsTID' iword-1 'adverb$'
+iword = iword - 1
+nword = nword - 1
+
+endif ; is suffix -mente
+endfor ; to nword
+##}
 
 select clitics
+plus mente_noadv
 Remove
 select tg
 endproc
