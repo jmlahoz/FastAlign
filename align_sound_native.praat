@@ -285,32 +285,6 @@ Replace interval text... phonesTID fromphone tophone ɪ j Literals
 Replace interval text... phonesTID fromphone tophone ʊ w Literals
 ##}
 
-##{ Adapt native aligner output (rising diphthongs after consonant clusters)
-for iphone from fromphone to tophone
-phone$ = Get label of interval... 'phonesTID' iphone
-if (phone$ = "i" or phone$ = "u") and iphone-2 >= fromphone and iphone+1 <= tophone
-prev2phone$ = Get label of interval... 'phonesTID' iphone-2
-prev1phone$ = Get label of interval... 'phonesTID' iphone-1
-nextphone$ = Get label of interval... 'phonesTID' iphone+1
-phoneend = Get end time of interval... 'phonesTID' iphone
-iword = Get low interval at time... 'wordsTID' 'phoneend'
-jword = Get high interval at time... 'wordsTID' 'phoneend'
-word$ = Get label of interval... 'wordsTID' iword
-iseq$ = prev2phone$ + prev1phone$ + "í" + nextphone$
-useq$ = prev2phone$ + prev1phone$ + "ú" + nextphone$
-
-if index("aeiou",nextphone$) != 0
-... and iword = jword
-... and ((phone$ = "i" and index(word$,iseq$) = 0) or (phone$ = "u" and index(word$,useq$) = 0))
-... and index("ptkBDGf",prev2phone$) != 0
-... and index("l4",prev1phone$) != 0
-Replace interval text... phonesTID iphone iphone i j Literals
-Replace interval text... phonesTID iphone iphone u w Literals
-endif ; nextphone$ is a vowel, within the same word, and /i, u/ are not stressed (all after a consonant cluster)
-endif ; phone$ = "i" or phone$ = "u"
-endfor ; to tophone
-##}
-
 ##{ Adapt native aligner output to Spanish phonotactics
 
 ##{ Properly interpret güe, güi as /Gwe, Gwi/
@@ -381,6 +355,42 @@ Set interval text... 'phonesTID' int w
 endif
 endif
 endif
+endfor ; to tophone
+##}
+
+##{ Rising diphthongs after consonant clusters
+for iphone from fromphone to tophone
+phone$ = Get label of interval... 'phonesTID' iphone
+if (phone$ = "i" or phone$ = "u") and iphone-2 >= fromphone and iphone+1 <= tophone
+prev2phone$ = Get label of interval... 'phonesTID' iphone-2
+prev1phone$ = Get label of interval... 'phonesTID' iphone-1
+nextphone$ = Get label of interval... 'phonesTID' iphone+1
+phoneend = Get end time of interval... 'phonesTID' iphone
+iword = Get low interval at time... 'wordsTID' 'phoneend'
+jword = Get high interval at time... 'wordsTID' 'phoneend'
+word$ = Get label of interval... 'wordsTID' iword
+iseq$ = prev2phone$ + prev1phone$ + "í" + nextphone$
+useq$ = prev2phone$ + prev1phone$ + "ú" + nextphone$
+iseq$ = replace$(iseq$,"k","c",0)
+iseq$ = replace$(iseq$,"B","b",0)
+iseq$ = replace$(iseq$,"D","d",0)
+iseq$ = replace$(iseq$,"G","g",0)
+iseq$ = replace$(iseq$,"4","r",0)
+useq$ = replace$(useq$,"k","c",0)
+useq$ = replace$(useq$,"B","b",0)
+useq$ = replace$(useq$,"D","d",0)
+useq$ = replace$(useq$,"G","g",0)
+useq$ = replace$(useq$,"4","r",0)
+
+if index("aeiou",nextphone$) != 0
+... and iword = jword
+... and ((phone$ = "i" and index(word$,iseq$) = 0) or (phone$ = "u" and index(word$,useq$) = 0))
+... and index("ptkBDGf",prev2phone$) != 0
+... and index("l4",prev1phone$) != 0
+Replace interval text... phonesTID iphone iphone i j Literals
+Replace interval text... phonesTID iphone iphone u w Literals
+endif ; nextphone$ is a vowel, within the same word, and /i, u/ are not stressed (all after a consonant cluster)
+endif ; phone$ = "i" or phone$ = "u"
 endfor ; to tophone
 ##}
 
