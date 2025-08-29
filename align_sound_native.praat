@@ -360,6 +360,39 @@ endfor ; to tophone
 
 ##}
 
+##{ Phonemic transcription of /n/ before labial
+for iphone from fromphone to tophone
+phone$ = Get label of interval... 'phonesTID' iphone
+if phone$ = "m" and iphone+1 <= tophone
+
+nextphone$ = Get label of interval... 'phonesTID' iphone+1
+if (nextphone$ = "_" or nextphone$ = "") and iphone+2 <= tophone
+# This prevents miscalculations in case of automatic estimation of silence between phones
+nextphone$ = Get label of interval... 'phonesTID' iphone+2
+endif
+phoneend = Get end time of interval... 'phonesTID' iphone
+iword = Get low interval at time... 'wordsTID' phoneend
+jword = Get high interval at time... 'wordsTID' phoneend
+word$ = Get label of interval... 'wordsTID' iword
+
+if nextphone$ = "f"
+... and (iword = jword or right$(word$,1) != "m")
+# [mf] is /nf/ except if there is a word boundary and the first word ends in /m/ (eg. curriculum)
+Set interval text... 'phonesTID' iphone n
+elsif nextphone$ = "B"
+... and ((iword = jword and index(word$,"mb") = 0) or (iword != jword and right$(word$,1) != "m"))
+# [mb] is /nB/ except when spelled "mb" word-internally (otherwise, "nv"), or across words if the first word ends in /m/
+Set interval text... 'phonesTID' iphone n
+elsif nextphone$ = "p"
+... and (iword != jword and right$(word$,1) != "m")
+# [mp] is /np/ across words except if the first word ends in /m/; it is always /mp/ word-internally
+Set interval text... 'phonesTID' iphone n
+endif ; nextphone$ is labial
+
+endif ; phone$ = "m"
+endfor ; to tophone
+##}
+
 ##{ Remove punctuation from words tier
 for iword from fromword to toword
 word$ = Get label of interval... 'wordsTID' iword
