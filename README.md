@@ -17,7 +17,7 @@ and David Weenink at University of Amsterdam.
 
 Suggested citation:
 
-Lahoz-Bengoechea, José María (2025). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (1.0) [Computer software]. https://github.com/jmlahoz/fastalign
+Lahoz-Bengoechea, José María (2025). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (Versión 1.0) [Software]. https://github.com/jmlahoz/FastAlign
 
 ------------------------------------------------------------------------------------------
 FastAlign is a tool designed to segment audios in phonetically relevant units (phonemes, syllables, and words). 
