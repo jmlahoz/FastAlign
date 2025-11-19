@@ -41,6 +41,7 @@ boolean keep_ortho 1
 comment Which ortho interval do you want to align?
 comment (leave this empty to align all intervals)
 word interval_number 
+boolean adapt_to_spanish_ipa 1
 endform
 ##}
 
@@ -479,11 +480,13 @@ wordsTID = findtierbyname.return
 endif ; keep_syll
 ##}
 
-##{ Convert SAMPA to IPA transcription
+##{ Convert to IPA transcription
+if adapt_to_spanish_ipa = 1
 select tg
 call toipa phones
 if keep_syll = 1
 call toipa syll
+endif
 endif
 ##}
 

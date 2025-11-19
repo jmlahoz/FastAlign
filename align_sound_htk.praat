@@ -435,7 +435,7 @@ ibar = index(failed_iphonos$,"_")
 # Native alignment is invoked as a last resource only for those intervals, in order to fill in words and phones
 select so
 plus tg
-runScript: "align_sound_native.praat", "yes", "no", "yes", "no", "yes", "yes", "'iphono$'"
+runScript: "align_sound_native.praat", "yes", "no", "yes", "no", "yes", "yes", "'iphono$'", "no"
 endwhile
 select tg
 call findtierbyname "phones" 1 1
