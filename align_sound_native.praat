@@ -406,8 +406,15 @@ if phone$ = "j" and iphone+1 <= tophone
 nextphone$ = Get label of interval... 'phonesTID' iphone+1
 if nextphone$ = "j"
 phoneend = Get end time of interval... 'phonesTID' iphone
+leftword = Get low interval at time... 'wordsTID' phoneend
+rightword = Get high interval at time... 'wordsTID' phoneend
 Remove boundary at time... 'phonesTID' phoneend
+if leftword = rightword
+# This prevents vocalization (ʝ̞  --> i̯) in within-word intervocalic context
+Set interval text... 'phonesTID' iphone jj
+elsif leftword != rightword
 Set interval text... 'phonesTID' iphone j
+endif
 tophone = tophone - 1 ; due to boundary removal
 endif ; nextphone$ = "j"
 endif ; phone$ = "j"
