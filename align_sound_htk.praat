@@ -1,6 +1,6 @@
 # FastAlign
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-06-10
+# Version 2025-11-19
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
