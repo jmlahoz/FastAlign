@@ -1,5 +1,5 @@
 clearinfo
-printline Version June 11, 2025
+printline Version December 26, 2025
 printline 'newline$'FastAlign is partially based on EasyAlign, by Jean-Philippe Goldman (2011)
 printline 'newline$'and further developed by José María Lahoz-Bengoechea.
 printline 'newline$'Contact, questions, suggestions:'newline$''tab$'jmlahoz@ucm.es
