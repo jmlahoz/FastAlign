@@ -398,6 +398,30 @@ endif ; phone$ = "i" or phone$ = "u"
 endfor ; to tophone
 ##}
 
+##{ Rising diphthongs after trills (plus /l/ in the case of /u/)
+for iphone from fromphone to tophone
+phone$ = Get label of interval... 'phonesTID' iphone
+if (phone$ = "i" or phone$ = "u") and iphone-1 >= fromphone and iphone+1 <= tophone
+prev1phone$ = Get label of interval... 'phonesTID' iphone-1
+nextphone$ = Get label of interval... 'phonesTID' iphone+1
+phoneend = Get end time of interval... 'phonesTID' iphone
+iword = Get low interval at time... 'wordsTID' 'phoneend'
+jword = Get high interval at time... 'wordsTID' 'phoneend'
+word$ = Get label of interval... 'wordsTID' iword
+iseq$ = prev1phone$ + "í" + nextphone$
+useq$ = prev1phone$ + "ú" + nextphone$
+
+if index("aeiou",nextphone$) != 0
+... and iword = jword
+... and ((phone$ = "i" and index(word$,iseq$) = 0) or (phone$ = "u" and index(word$,useq$) = 0))
+... and index("lr",prev1phone$) != 0
+Replace interval text... phonesTID iphone iphone i j Literals
+Replace interval text... phonesTID iphone iphone u w Literals
+endif ; nextphone$ is a vowel, within the same word, and /i, u/ are not stressed (all after a liquid)
+endif ; phone$ = "i" or phone$ = "u"
+endfor ; to tophone
+##}
+
 ##{ Sonority valleys
 # Keep word-final palatal paravowel from consonantizing before vowel-initial word (eg. "muy a menudo" -/-> "mu ya menudo")
 for iphone from fromphone to tophone
