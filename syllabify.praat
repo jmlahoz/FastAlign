@@ -1,6 +1,6 @@
 # FastAlign
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-06-02
+# Version 2025-12-29
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
@@ -19,6 +19,7 @@
 
 # This script takes a TextGrid with one tier named phones (+ possibly other tiers)
 # and creates a syll tier following the syllabification rules for Spanish.
+# The algorithm assumes that phones are transcribed in SAMPA.
 
 include auxiliary.praat
 include stress.praat

@@ -67,9 +67,6 @@ If you have an already segmented TextGrid and want to re-try segmentation of jus
 you may choose to do so by running "Align sound (native)". 
 For just that one interval, information will be overwritten regardless of the overwrite checkbox.
 
-Syllabification and IPA transcription are included in the alignment 
-but are also available as separate functions for your convenience.
-
 ------------------------------------------------------------------------------------------
 In any case, alignment should be further hand-corrected. 
 Tip: hold SHIFT down while you click and drag any boundary of a given tier, 

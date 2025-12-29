@@ -1,5 +1,5 @@
 # LICENSE
-# (C) 2025 José María Lahoz-Bengoechea
+# (C) 2025 José María Lahoz-Bengoechea.
 # This file is part of FastAlign.
 # FastAlign is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License
@@ -9,7 +9,7 @@
 # but WITHOUT ANY WARRANTY, without even the implied warranty
 # of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 # For more details, you can find the GNU General Public License here:
-# http://www.gnu.org/licenses/gpl-3.0.en.html
+# http://www.gnu.org/licenses/gpl-3.0.en.html.
 # FastAlign is partially based on EasyAlign, by Jean-Philippe Goldman (2011),
 # and further developed by José María Lahoz-Bengoechea.
 # FastAlign runs on Praat, a software developed by Paul Boersma
@@ -58,11 +58,6 @@ printline If you have an already segmented TextGrid and want to re-try segmentat
 printline you may choose to do so by running "Align sound (native)".
 printline For just that one interval, information will be overwritten regardless of the overwrite checkbox.
 endif
-printline
-printline -------------------------------------------------------------------------
-printline
-printline Syllabification and IPA transcription are included in the alignment
-printline but are also available as separate functions for your convenience.
 printline
 printline -------------------------------------------------------------------------
 printline

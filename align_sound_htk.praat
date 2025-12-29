@@ -1,6 +1,6 @@
 # FastAlign
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-11-19
+# Version 2025-12-29
 
 # LICENSE
 # (C) 2025 José María Lahoz-Bengoechea
@@ -189,7 +189,7 @@ if orthoTID = 0
 exit The TextGrid must contain one tier named ortho (and another named phono). Exiting...
 endif
 if phonoTID = 0
-exit The TextGrid must contain one tier named ortho and another named phono. Execute step "2. Phonetization" to create phono from ortho, then execute step "3. Align sound (HTK)". Exiting...
+exit The TextGrid must contain one tier named ortho and another named phono. Execute "Phonetize ortho tier" to create phono from ortho, then execute "Align sound (HTK)". Exiting...
 endif
 
 # Check if phonoTID and orthoTID have the same boundaries

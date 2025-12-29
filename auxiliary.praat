@@ -1,9 +1,9 @@
 # Auxiliary functions for Praat
 # José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-06-02
+# Version 2025-12-29
 
 # LICENSE
-# (C) 2022 José María Lahoz-Bengoechea
+# (C) 2022-2025 José María Lahoz-Bengoechea
 # This is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License
 # as published by the Free Software Foundation
@@ -24,7 +24,7 @@
 
 
 # Suggested citation:
-# Lahoz-Bengoechea, José María (2022). Auxiliary functions for Praat (1.0) [Computer software].
+# Lahoz-Bengoechea, José María (2025). Auxiliary functions for Praat (2.0) [Computer software].
 
 
 ##{ getws
