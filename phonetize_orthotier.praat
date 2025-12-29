@@ -154,7 +154,7 @@ Write to raw text file... tmp/t.txt
 # Double backslash is used to escape the backslash
 # and keep \t from being interpreted as tab character
 system lang\\spa\\saga.exe -MX tmp\\t.txt tmp\\tout.txt
-pause
+
 # Adapt SAGA output to Spanish SAMPA
 phonostr3 = Read Strings from raw text file... tmp/tout.txt.fon
 phonostr4 = Change... r 4 0 Literals
