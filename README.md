@@ -41,7 +41,9 @@ FastAlign creates 'phones', 'syll', and 'words' tiers from a Sound and a TextGri
 with an existing 'ortho' tier. 
 
 The ortho tier can be automatically created with Whisper as a previous step, 
-as shown here: 
+as shown here: https://www.youtu.be/03EIj5UkJ5c
+
+Then, use FastAlign as shown in this tutorial: https://youtu.be/O4CEjc63-qk
 
 ------------------------------------------------------------------------------------------
 On Windows, segmentation is based on HTK by default. 
