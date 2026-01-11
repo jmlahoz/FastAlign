@@ -1,9 +1,9 @@
 # FastAlign
-# JosÈ MarÌa Lahoz-Bengoechea (jmlahoz@ucm.es)
+# Jos√© Mar√≠a Lahoz-Bengoechea (jmlahoz@ucm.es)
 # Version 2025-12-29
 
 # LICENSE
-# (C) 2025 JosÈ MarÌa Lahoz-Bengoechea
+# (C) 2025 Jos√© Mar√≠a Lahoz-Bengoechea
 # This file is part of FastAlign.
 # FastAlign is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License
@@ -18,7 +18,7 @@
 # and David Weenink at University of Amsterdam.
 
 # This file also calls and executes SAGA, a software external to Praat,
-# developed by JosÈ B. MariÒo and Albino Nogueiras RodrÌguez,
+# developed by Jos√© B. Mari√±o and Albino Nogueiras Rodr√≠guez,
 # licensed under the GNU General Public License (version 3)
 # and publicly available here: https://github.com/TALP-UPC/saga
 
@@ -83,13 +83,13 @@ call findtierbyname ortho2 1 1
 ortho2TID = findtierbyname.return
 
 # Conversion of diacritized letters to lowercase.
-Replace interval text... orthoTID 0 0 ¡ · Literals
-Replace interval text... orthoTID 0 0 … È Literals
-Replace interval text... orthoTID 0 0 Õ Ì Literals
-Replace interval text... orthoTID 0 0 ” Û Literals
-Replace interval text... orthoTID 0 0 ⁄ ˙ Literals
-Replace interval text... orthoTID 0 0 ‹ ¸ Literals
-Replace interval text... orthoTID 0 0 — Ò Literals
+Replace interval text... orthoTID 0 0 √Å √° Literals
+Replace interval text... orthoTID 0 0 √â √© Literals
+Replace interval text... orthoTID 0 0 √ç √≠ Literals
+Replace interval text... orthoTID 0 0 √ì √≥ Literals
+Replace interval text... orthoTID 0 0 √ö √∫ Literals
+Replace interval text... orthoTID 0 0 √ú √º Literals
+Replace interval text... orthoTID 0 0 √ë √± Literals
 
 # Conversion of other letters to lowercase (in this case, we can use regular expressions).
 for int from 1 to nint
