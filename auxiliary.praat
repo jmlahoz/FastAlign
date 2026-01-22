@@ -1,30 +1,10 @@
 # Auxiliary functions for Praat
-# José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-12-29
+# License: GPL-3.0-or-later
 
-# LICENSE
-# (C) 2022-2025 José María Lahoz-Bengoechea
-# This is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License
-# as published by the Free Software Foundation
-# either version 3 of the License, or (at your option) any later version.
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, without even the implied warranty
-# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# For more details, you can find the GNU General Public License here:
-# http://www.gnu.org/licenses/gpl-3.0.en.html
-# This file runs on Praat, a software developed by Paul Boersma
-# and David Weenink at University of Amsterdam.
-
-
-# This file is a repository of functions that are invoked from other Praat scripts
-# developed by José María Lahoz-Bengoechea.
-# Some procedures (or functions): findtierbyname, mystrip, removepunct, removespaces
+# This file is a repository of functions that are invoked from other Praat scripts.
+# Developed by José María Lahoz-Bengoechea.
+# Some procedures (or functions), including findtierbyname, mystrip, removepunct, and removespaces,
 # were originally written by Jean-Philippe Goldman.
-
-
-# Suggested citation:
-# Lahoz-Bengoechea, José María (2025). Auxiliary functions for Praat (2.0) [Computer software].
 
 
 ##{ getws

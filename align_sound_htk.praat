@@ -1,21 +1,11 @@
 # FastAlign
-# José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-12-29
+# Author: José María Lahoz-Bengoechea
+# License: GPL-3.0-or-later
 
-# LICENSE
-# (C) 2025 José María Lahoz-Bengoechea
-# This file is part of FastAlign.
-# FastAlign is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License
-# as published by the Free Software Foundation
-# either version 3 of the License, or (at your option) any later version.
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, without even the implied warranty
-# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# For more details, you can find the GNU General Public License here:
-# http://www.gnu.org/licenses/gpl-3.0.en.html
-# FastAlign runs on Praat, a software developed by Paul Boersma
-# and David Weenink at University of Amsterdam.
+# This script takes a Sound and a TextGrid with an ortho and a phono tier.
+# ortho must contain the transliteration of the sound in conventional Spanish spelling.
+# phono must contain the corresponding SAMPA transcription (as the output of the script phonetize_orthotier).
+# It yields phones, syll, and words tiers aligned to the contents of the sound.
 
 # This file also calls and executes HVite, a tool belonging to HTK, which is a software external to Praat,
 # developed by the Speech Research Group at the University of Cambridge:
@@ -23,11 +13,6 @@
 # The alignment is based on Hidden Markov Models (HMMs) trained with HTK.
 # In the current version, this only works for Windows and for Spanish.
 # Although this is a limitation, it is more accurate than Praat's native method of alignment.
-
-# This script takes a Sound and a TextGrid with an ortho and a phono tier.
-# ortho must contain the transliteration of the sound in conventional Spanish spelling.
-# phono must contain the corresponding SAMPA transcription (as the output of the script phonetize_orthotier).
-# It yields phones, syll, and words tiers aligned to the contents of the sound.
 
 include auxiliary.praat
 nocheck createDirectory ("tmp")

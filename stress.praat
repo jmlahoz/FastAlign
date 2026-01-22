@@ -1,21 +1,6 @@
 # FastAlign
-# José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-12-29
-
-# LICENSE
-# (C) 2025 José María Lahoz-Bengoechea
-# This file is part of FastAlign.
-# FastAlign is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License
-# as published by the Free Software Foundation
-# either version 3 of the License, or (at your option) any later version.
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, without even the implied warranty
-# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# For more details, you can find the GNU General Public License here:
-# http://www.gnu.org/licenses/gpl-3.0.en.html
-# FastAlign runs on Praat, a software developed by Paul Boersma
-# and David Weenink at University of Amsterdam.
+# Author: José María Lahoz-Bengoechea
+# License: GPL-3.0-or-later
 
 # This script takes a TextGrid with one tier named words and another named syll.
 # It includes knowledge about instrinsically unstressed words in Spanish and leaves them unmarked.

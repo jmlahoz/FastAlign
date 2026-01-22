@@ -29,3 +29,4 @@ Add menu command... "Objects" "Control" "Align sound (native)..." "FastAlign" 1 
 endif
 Add menu command... "Objects" "Control" "-" "FastAlign" 1
 Add menu command... "Objects" "Control" "About" "FastAlign" 1 about.praat
+Add menu command... "Objects" "Control" "Help" "FastAlign" 1 help.praat

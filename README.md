@@ -1,5 +1,5 @@
 LICENSE
-(C) 2025 José María Lahoz-Bengoechea 
+(C) 2025-2026 José María Lahoz-Bengoechea 
 This file is part of FastAlign. 
 FastAlign is free software; you can redistribute it and/or modify it 
 under the terms of the GNU General Public License 
@@ -17,7 +17,17 @@ and David Weenink at University of Amsterdam.
 
 Suggested citation:
 
-Lahoz-Bengoechea, José María (2025). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (Versión 1.0) [Software]. https://github.com/jmlahoz/FastAlign
+Lahoz-Bengoechea, José María (2026). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (Version 1.0.1) [Software]. https://github.com/jmlahoz/FastAlign
+
+------------------------------------------------------------------------------------------
+For bug reports and academic inquiries, please see the Help section
+included with the software.
+
+------------------------------------------------------------------------------------------
+This package includes auxiliary.praat, a collection of reusable Praat
+functions developed by the author and used across several projects.
+If you use the auxiliary Praat functions outside FastAlign,
+please cite the FastAlign software or contact the author.
 
 ------------------------------------------------------------------------------------------
 FastAlign is a tool designed to segment audios in phonetically relevant units (phonemes, syllables, and words). 

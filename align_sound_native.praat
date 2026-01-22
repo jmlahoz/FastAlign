@@ -1,30 +1,15 @@
 # FastAlign
-# José María Lahoz-Bengoechea (jmlahoz@ucm.es)
-# Version 2025-12-29
-
-# LICENSE
-# (C) 2025 José María Lahoz-Bengoechea
-# This file is part of FastAlign.
-# FastAlign is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License
-# as published by the Free Software Foundation
-# either version 3 of the License, or (at your option) any later version.
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, without even the implied warranty
-# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# For more details, you can find the GNU General Public License here:
-# http://www.gnu.org/licenses/gpl-3.0.en.html
-# FastAlign runs on Praat, a software developed by Paul Boersma
-# and David Weenink at University of Amsterdam.
-
-# The alignment is based on Praat's native method.
-# It works on Windows, Macintosh or Linux. However, it is less accurate than HTK.
-# It potentially aligns multiple languages, but in the current version this is adapted for Spanish only.
+# Author: José María Lahoz-Bengoechea
+# License: GPL-3.0-or-later
 
 # This script takes a Sound and a TextGrid with an ortho and a phono tier.
 # ortho must contain the transliteration of the sound in conventional Spanish spelling.
 # phono must contain the corresponding SAMPA transcription (as the output of the script phonetize_orthotier).
 # It yields phones, syll, and words tiers aligned to the contents of the sound.
+
+# The alignment is based on Praat's native method.
+# It works on Windows, Macintosh or Linux. However, it is less accurate than HTK.
+# It potentially aligns multiple languages, but in the current version this is adapted for Spanish only.
 
 include auxiliary.praat
 

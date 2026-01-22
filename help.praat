@@ -1,21 +1,6 @@
-# LICENSE
-# (C) 2025 José María Lahoz-Bengoechea.
-# This file is part of FastAlign.
-# FastAlign is free software; you can redistribute it and/or modify it
-# under the terms of the GNU General Public License
-# as published by the Free Software Foundation
-# either version 3 of the License, or (at your option) any later version.
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY, without even the implied warranty
-# of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-# For more details, you can find the GNU General Public License here:
-# http://www.gnu.org/licenses/gpl-3.0.en.html.
-# FastAlign is partially based on EasyAlign, by Jean-Philippe Goldman (2011),
-# and further developed by José María Lahoz-Bengoechea.
-# FastAlign runs on Praat, a software developed by Paul Boersma
-# and David Weenink at University of Amsterdam.
-
-
+# FastAlign
+# Author: José María Lahoz-Bengoechea
+# License: GPL-3.0-or-later
 
 clearinfo
 printline Contact, questions, suggestions: José María Lahoz-Bengoechea'newline$''tab$'jmlahoz@ucm.es
@@ -23,7 +8,8 @@ printline
 printline FastAlign creates 'phones', 'syll', and 'words' tiers from a Sound and a TextGrid
 printline with an existing 'ortho' tier.
 printline The 'ortho' tier can be automatically created with Whisper as a previous step,
-printline as shown here: 
+printline as shown here: https://www.youtu.be/03EIj5UkJ5c
+printline Then, use FastAlign as shown in this tutorial: https://youtu.be/O4CEjc63-qk
 printline
 printline -------------------------------------------------------------------------
 printline
