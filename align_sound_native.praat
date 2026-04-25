@@ -116,7 +116,10 @@ endif
 ##{ Apply native alignment
 select so
 plus tg
+# In older versions of Praat, alignment must be performed from within the editor instead of a function of the objects window.
+if praatVersion < 6409
 View & Edit
+endif
 select tg
 
 ini = Get start time
@@ -127,6 +130,7 @@ endif
 call findtierbyname ortho 1 1
 orthoTID = findtierbyname.return
 
+if praatVersion < 6409
 # Tier ortho must be tier 1, since Align interval operates on selected tier.
 # The tier selected by default in the editor is tier 1 and this cannot be changed by script.
 # If necessary, ortho must be temporarily duplicated to position 1.
@@ -135,6 +139,7 @@ orthobakTID = orthoTID
 Set tier name... 'orthobakTID' orthobak
 orthoTID = 1
 Duplicate tier... 'orthobakTID' 'orthoTID' ortho
+endif
 endif
 
 # If an interval number was specified, only this will be aligned.
@@ -148,11 +153,20 @@ toortho = Get number of intervals... 'orthoTID'
 endif
 
 for int from fromortho to toortho
+select tg
 lab$ = Get label of interval... 'orthoTID' int
 if lab$ = "-" or lab$ = "_" or lab$ = " "
 # Make silent intervals really empty
 Set interval text... 'orthoTID' int 
 endif
+
+if praatVersion >= 6409
+# Alignment can be performed from the objects window
+select so
+plus tg
+noprogress Align interval: 'orthoTID', 'int', "Spanish (Spain)", "yes", "yes"
+else
+# Alignment must be performed from within the editor
 ini = Get start time of interval... 'orthoTID' int
 editor TextGrid 'name$'
 Move cursor to... ini
@@ -170,9 +184,11 @@ if int = toortho
 Close
 endif
 endeditor
+endif ; praatVersion >= 6409
 endfor ; int
 
 # Remove the temporary copy of ortho tier if that had been necessary
+select tg
 call findtierbyname orthobak 0 1
 orthobakTID = findtierbyname.return
 if orthobakTID != 0
