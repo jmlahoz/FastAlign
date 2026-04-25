@@ -2,9 +2,8 @@
 # Author: José María Lahoz-Bengoechea
 # License: GPL-3.0-or-later
 
-# This script takes a Sound and a TextGrid with an ortho and a phono tier.
+# This script takes a Sound and a TextGrid with an ortho tier.
 # ortho must contain the transliteration of the sound in conventional Spanish spelling.
-# phono must contain the corresponding SAMPA transcription (as the output of the script phonetize_orthotier).
 # It yields phones, syll, and words tiers aligned to the contents of the sound.
 
 # The alignment is based on Praat's native method.
