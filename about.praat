@@ -1,11 +1,11 @@
 clearinfo
 printline FastAlign
-printline 'newline$'Version 1.0.1 (2026-01-22)
+printline 'newline$'Version 1.1.0 (2026-04-25)
 printline 'newline$'FastAlign is partially based on EasyAlign, by Jean-Philippe Goldman (2011)
 printline 'newline$'and further developed by José María Lahoz-Bengoechea.
 printline
 printline Suggested citation:
-printline Lahoz-Bengoechea, José María (2026). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (Version 1.0.1) [Computer software]. https://github.com/jmlahoz/FastAlign
+printline Lahoz-Bengoechea, José María (2026). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (Version 1.1.0) [Computer software]. https://github.com/jmlahoz/FastAlign
 printline
 printline Download site:
 printline https://github.com/jmlahoz/FastAlign
