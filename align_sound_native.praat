@@ -112,6 +112,11 @@ select so
 endif
 ##}
 
+##{ Fix interval overlap
+select tg
+runScript: "fix_interval_overlap.praat"
+##}
+
 ##{ Apply native alignment
 select so
 plus tg

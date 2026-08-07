@@ -17,7 +17,7 @@ and David Weenink at University of Amsterdam.
 
 Suggested citation:
 
-Lahoz-Bengoechea, José María (2026). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (Version 1.1.0) [Software]. https://github.com/jmlahoz/FastAlign
+Lahoz-Bengoechea, José María (2026). FastAlign: A Praat plugin for phonemic, syllabic and wordly segmentation of Spanish audios (Version 1.2.0) [Software]. https://github.com/jmlahoz/FastAlign
 
 ------------------------------------------------------------------------------------------
 For bug reports and academic inquiries, please see the Help section

@@ -43,6 +43,11 @@ so=selected("LongSound")
 endif
 ##}
 
+##{ Fix interval overlap
+select tg
+runScript: "fix_interval_overlap.praat"
+##}
+
 select tg
 call textEncodingPreferences
 
